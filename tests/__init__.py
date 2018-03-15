@@ -1,0 +1,1 @@
+from test_scanner import CheckerModule

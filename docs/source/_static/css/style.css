@@ -1,0 +1,17 @@
+.method {
+  background-color: #f6f6f6;
+}
+
+.wy-side-nav-search {
+  background: #2f455e;
+}
+
+.wy-menu-vertical a:hover {
+    background-color: #3b4f63;
+}
+.wy-menu-vertical a:active {
+    background-color: #447da2;
+}
+.wy-nav-side {
+    background: #283340;
+}
