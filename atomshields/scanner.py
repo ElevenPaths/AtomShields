@@ -324,7 +324,7 @@ class AtomShieldsScanner(object):
 
 	def loadConfig(self):
 		if self.configFile is not None:
-			handler = ConfigParser.ConfigParser()
+			handler = ConfigParser()
 			handler.read(self.configFile)
 			self.config = handler
 
