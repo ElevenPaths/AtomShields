@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf8 -*-
 
-from base import GenericChecker
+# from base import GenericChecker
+from base import *
 from atomshields import Issue
 import subprocess
 
@@ -19,26 +20,29 @@ class DSStoreChecker(GenericChecker):
 		super(DSStoreChecker, self).__init__()
 
 
+	@checker
 	def run(self):
 		"""
 		Finds .DS_Store files into path
 		"""
-		try:
-			print "Running DSStore"
-			command = "find {path} -type f -name \".DS_Store\" ".format(path=self.path)
-			output = subprocess.check_output(command, shell=True)
-			files = output.split("\n")
-			for f in files:
-				issue = Issue()
-				issue.name = "File .DS_Store detected"
-				issue.potential = False
-				issue.severity = Issue.SEVERITY_LOW
-				# Get only relative path
-				issue.file = f.replace(self.path, "")
+		filename = ".DS_Store"
+		command = "find {path} -type f -name \"{filename}\" ".format(path = self.path, filename = filename)
+		output = subprocess.check_output(command, shell = True)
+		files = output.split("\n")
+		for f in files:
+			if not f.endswith(filename):
+				continue
 
-				self.saveIssue(issue)
+			issue = Issue()
+			issue.name = "File .DS_Store detected"
+			issue.potential = False
+			issue.severity = Issue.SEVERITY_LOW
+			
+			# Get only relative path
+			issue.file = f.replace(self.path, "")
 
-				return self.issues
+			self.saveIssue(issue)
 
-		except Exception as e:
-			print e
+
+
+

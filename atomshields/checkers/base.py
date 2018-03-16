@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf8 -*-
 
+
+import sys
+import inspect
+import termcolor
+
 class GenericChecker(object):
 
 	def __init__(self):
@@ -97,8 +102,7 @@ class GenericChecker(object):
 		"""
 		self._issues = value
 
-	@staticmethod
-	def test():
+	def test(self):
 		"""
 		Check if the checker is OK to run. 
 
@@ -119,6 +123,7 @@ class GenericChecker(object):
 		"""
 		pass
 
+	
 
 
 
@@ -130,5 +135,34 @@ class GenericChecker(object):
 		Args:
 			issue (Issue): Issue instance
 		"""
+		
+
 		self.issues.append(issue)
+
+
+
+def checker(func):
+	"""
+	Decorator for method run. This method will be execute before the execution 
+	from the method with this decorator.
+	"""
+	def execute(self, *args, **kwargs):
+		try:
+			if hasattr(self, 'test'):
+				if self.test():
+					func(self, *args, **kwargs)
+					return self.issues
+				else:
+					print colored("[!] El checker {class} no ha pasado el test inicial", "red")
+			else:
+				#func(self, *args, **kwargs)
+				return self.issues
+
+		except Exception as e:
+			desc = "Error en la ejecución del checker: %s" % e
+			print desc 
+
+	return execute
+
+
 
