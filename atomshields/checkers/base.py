@@ -8,6 +8,7 @@ class GenericChecker(object):
 		Creates a new class instance for Generic Checkers
 		"""
 		self._dao = None
+		self._path = None
 		self._config = None
 		self._issues = []
 
@@ -31,6 +32,28 @@ class GenericChecker(object):
 
 		"""
 		self._dao = value
+
+
+	@property
+	def path(self):
+		"""
+		Getter for 'path' property
+	
+		Returns:
+			str: Absolute path to scan
+		"""
+		return self._path
+
+	@path.setter
+	def path(self, value):
+		"""
+		Setter for 'path' property
+
+		Args:
+			value (str): Absolute path to scan
+
+		"""
+		self._path = value
 
 	@property
 	def issues(self):
@@ -64,6 +87,9 @@ class GenericChecker(object):
 
 			bool: True if the checker has all the requirements installed. False else
 		"""
+		if self.path is None:
+			return False
+
 		return True
 
 	def run(self):
