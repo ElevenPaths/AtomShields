@@ -1,9 +1,9 @@
 # -*- coding:utf8 -*-
-import unittest
+import pytest
 import os
 from atomshields.checkers.dsstore import DSStoreChecker
 
-class TestDSStoreChecker(unittest.TestCase):
+class TestDSStoreChecker():
 
     @classmethod
     def setUpClass(cls):
@@ -13,18 +13,18 @@ class TestDSStoreChecker(unittest.TestCase):
         checker = DSStoreChecker()
         checker._path = os.path.join(os.path.dirname(__file__), 'dataset', 'vulnerable')
         issues = checker.run()
-        self.assertEqual(len(issues), 1)
-        self.assertEqual(issues[0]._file, '/.DS_Store')
+        assert len(issues) == 1
+        assert issues[0]._file == '/.DS_Store'
 
     def test_DSSTORE_childdir(self):
         checker = DSStoreChecker()
         checker._path = os.path.join(os.path.dirname(__file__), 'dataset')
         issues = checker.run()
-        self.assertEqual(len(issues), 1)
-        self.assertEqual(issues[0]._file, '/vulnerable/.DS_Store')
+        assert len(issues) == 1
+        assert issues[0]._file == '/vulnerable/.DS_Store'
 
     def test_DSSTORE_negative(self):
         checker = DSStoreChecker()
         checker._path = os.path.join(os.path.dirname(__file__), 'dataset', 'notvulnerable')
         issues = checker.run()
-        self.assertFalse(len(issues))
+        assert len(issues) == 0

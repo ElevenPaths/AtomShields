@@ -1,9 +1,9 @@
 # -*- coding:utf8 -*-
-import unittest
+import pytest
 import os
 from atomshields.checkers.passwords import PasswordsCheckers
 
-class TestDSStoreChecker(unittest.TestCase):
+class TestDSStoreChecker():
 
     @classmethod
     def setUpClass(cls):
