@@ -153,9 +153,9 @@ def checker(func):
 					func(self, *args, **kwargs)
 					return self.issues
 				else:
-					print colored("[!] El checker {class} no ha pasado el test inicial", "red")
+					print colored("[!] The initial test for class {c} has not been successful".format(c=self.__class__.__name__), "red")
 			else:
-				#func(self, *args, **kwargs)
+				func(self, *args, **kwargs)
 				return self.issues
 
 		except Exception as e:
