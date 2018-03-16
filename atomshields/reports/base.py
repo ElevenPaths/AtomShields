@@ -3,7 +3,6 @@
 
 class GenericReport(object):
 
-	def __init__(self, issues):
-		self.issues = issues
-
+	def __init__(self):
+		pass
 		

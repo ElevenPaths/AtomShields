@@ -15,5 +15,5 @@ class HttpReport(GenericReport):
 	def __init__(self):
 		pass
 
-	def run(self):
+	def run(self, issues):
 		print "Enviando por http"
