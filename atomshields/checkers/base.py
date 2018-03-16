@@ -56,6 +56,27 @@ class GenericChecker(object):
 		self._path = value
 
 	@property
+	def project(self):
+		"""
+		Getter for 'project' property
+	
+		Returns:
+			str: Project's name
+		"""
+		return self._project
+
+	@project.setter
+	def project(self, value):
+		"""
+		Setter for 'project' property
+
+		Args:
+			value (str): Project's name
+
+		"""
+		self._project = value
+
+	@property
 	def issues(self):
 		"""
 		Getter for 'issues' property
