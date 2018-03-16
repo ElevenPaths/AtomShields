@@ -44,19 +44,20 @@ class TargetBlankChecker(GenericChecker):
 			prog = re.compile(TargetBlankChecker.REGEX, re.MULTILINE)
 			matches = prog.finditer(content)
 			matches_data = []
-			for matchNum, match in enumerate(matches):
-				matchNum = matchNum + 1
+			matchNum = 0
+			for _matchNum, match in enumerate(matches):
+				matchNum += 1
 				matches_data.append(match.group())
 
+			if matchNum > 0:
+				issue = Issue()
+				issue.name = "Target _blank vulnerability"
+				issue.file = line.replace(self.path, "")
+				issue.severity = Issue.SEVERITY_MEDIUM
+				details = ["""It has been found that your 'a' tags with attribute target="_blank" don't have the attribute rel="noopener", and this makes possible to carry out phishing attacks.""",
+				"Lines affected:"] 
+				details += matches_data
+				issue.details = "\n".join(details)
 
-			issue = Issue()
-			issue.name = "Target _blank vulnerability"
-			issue.file = line.replace(self.path, "")
-			issue.severity = Issue.SEVERITY_MEDIUM
-			details = ["""It has been found that your 'a' tags with attribute target="_blank" don't have the attribute rel="noopener", and this makes possible to carry out phishing attacks.""",
-			"Lines affected:"] 
-			details += matches_data
-			issue.details = "\n".join(details)
 
-
-			self.saveIssue(issue)
+				self.saveIssue(issue)
