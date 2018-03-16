@@ -398,6 +398,7 @@ class AtomShieldsScanner(object):
 					if callable(method):
 						args["instance"] = instance
 						output = method(**args)
+						response[instance.__class__.NAME] = output
 					else:
 						if hasattr(instance, method):
 							output = getattr(instance, method)(**args)
@@ -478,6 +479,7 @@ class AtomShieldsScanner(object):
 
 		# Execute plugins
 		issues = self.executeCheckers()
+
 
 
 		# Finish time counter

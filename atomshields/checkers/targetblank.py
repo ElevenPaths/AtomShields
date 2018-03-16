@@ -59,5 +59,4 @@ class TargetBlankChecker(GenericChecker):
 				details += matches_data
 				issue.details = "\n".join(details)
 
-
 				self.saveIssue(issue)
