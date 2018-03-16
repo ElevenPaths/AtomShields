@@ -1,3 +1,4 @@
+from atomshields.helpers.issue import Issue
+from atomshields.scanner import AtomShieldsScanner
 
-from helpers.issue import Issue
-
+__all__ = ['AtomShieldsScanner']

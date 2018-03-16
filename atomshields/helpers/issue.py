@@ -3,6 +3,26 @@
 
 
 class Issue(object):
+	"""
+	Type of object returned by all checkers.
+
+	Este es el modelo genérico que será generado por cada vulnerabilidad encontrada por los
+	checkers y tratada por los modulos de reporte.
+
+	Attributes:
+		SEVERITY_INFO (str): Name of the incidences of informatic value
+		SEVERITY_LOW (str): Name of incidents with low criticality
+		SEVERITY_MEDIUM (str): Name of incidents with medium criticality
+		SEVERITY_HIGH (str): Name of requests with high criticality
+		SEVERITY_CRITICAL (str): Name of the requests with very high criticality
+		_name (str) : Name of the request
+		_file (str) : File affected by the incident
+		_details (str) : Other details about the incident
+		_severity (str) : Criticism of the incidence
+		_potential (bool) :
+		_checker_name (str) : Name of the module that detected the request
+
+	"""
 
 	SEVERITY_INFO = "Info"
 	SEVERITY_LOW = "Low"
@@ -24,7 +44,7 @@ class Issue(object):
 	def name(self):
 		"""
 		Getter for 'name' property
-	
+
 		Returns:
 			string: Issue's name
 		"""
@@ -47,7 +67,7 @@ class Issue(object):
 	def file(self):
 		"""
 		Getter for 'file' property
-	
+
 		Returns:
 			string: Issue's file
 		"""
@@ -70,7 +90,7 @@ class Issue(object):
 	def severity(self):
 		"""
 		Getter for 'severity' property
-	
+
 		Returns:
 			string: Issue's severity
 		"""
@@ -93,7 +113,7 @@ class Issue(object):
 	def potential(self):
 		"""
 		Getter for 'potential' property
-	
+
 		Returns:
 			bool: potential is required?
 		"""
@@ -121,7 +141,7 @@ class Issue(object):
 	def details(self):
 		"""
 		Getter for 'details' property
-	
+
 		Returns:
 			string: Issue's details
 		"""
@@ -143,7 +163,7 @@ class Issue(object):
 	def checker(self):
 		"""
 		Getter for 'checker' property
-	
+
 		Returns:
 			string: Issue's checker
 		"""
@@ -160,4 +180,3 @@ class Issue(object):
 
 		"""
 		self._checker_name = value
-
