@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf8 -*-
 
-from base import GenericChecker
+from base import *
+from atomshields import Issue
+import subprocess
+import re
 
 class TargetBlankChecker(GenericChecker):
 
@@ -12,5 +15,49 @@ class TargetBlankChecker(GenericChecker):
 		"exclude_paths": ["test/", "docs/"]
 	}
 
+	# REGEX = """(<a (?=.*href=(['\"])(https?:)?\/\/.*?\2)(?!.*rel=(['\"])(.*\bnoopener\b.*\bnoreferrer\b.*|.*\bnoreferrer\b.*\bnoopener\b.*)\4)[^>]*target=(['\"]?)_blank\6[^>]*)(>)([^<]*)(<\/a>)?"""
+	REGEX = ur"(<a (?=.*href=(['\"])(https?:)?\/\/.*?\2)(?!.*rel=(['\"])(.*\bnoopener\b.*\bnoreferrer\b.*|.*\bnoreferrer\b.*\bnoopener\b.*)\4)[^>]*target=(['\"]?)_blank\6[^>]*)(>)([^<]*)(<\/a>)?"
+	
 	def __init__(self):
-		pass
+		super(TargetBlankChecker, self).__init__()
+
+
+	@checker
+	def run(self):
+		regex = "target.*_blank"
+		command = """grep -rile "{regex}" "{path}" """.format(path=self.path, regex = regex)
+		p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+		output, errors = p.communicate()
+
+		lines = output.split("\n")
+		for line in lines:
+			if not line.startswith(self.path):
+				continue
+
+			#line is the file which contains "target.*_blank"
+
+			# get content
+			f = open(line, 'r')
+			content = f.read()
+			f.close()
+
+			
+			prog = re.compile(TargetBlankChecker.REGEX, re.MULTILINE)
+			matches = prog.finditer(content)
+			matches_data = []
+			for matchNum, match in enumerate(matches):
+				matchNum = matchNum + 1
+				matches_data.append(match.group())
+
+
+			issue = Issue()
+			issue.name = "Target _blank vulnerability"
+			issue.file = line.replace(self.path, "")
+			issue.severity = Issue.SEVERITY_MEDIUM
+			details = ["""It has been found that your 'a' tags with attribute target="_blank" don't have the attribute rel="noopener", and this makes possible to carry out phishing attacks.""",
+			"Files affected:"] 
+			details += matches_data
+			issue.details = "\n".join(details)
+
+
+			self.saveIssue(issue)

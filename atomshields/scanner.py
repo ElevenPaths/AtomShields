@@ -367,6 +367,7 @@ class AtomShieldsScanner(object):
 			class_ = getattr(mod, classname)
 			instance = class_(**args)
 		except Exception as e:
+			AtomShieldsScanner._debug("[!] %s" % e)
 			return None
 		finally:
 			sys.path.remove(os.path.dirname(path))
@@ -393,13 +394,16 @@ class AtomShieldsScanner(object):
 			basename = os.path.basename(file).replace(".py", "")
 			try:
 				instance= AtomShieldsScanner._getClassInstance(path = file, args = {})
-				if callable(method):
-					args["instance"] = instance
-					output = method(**args)
-				else:
-					output = getattr(instance, method)(**args)
-				response[instance.__class__.NAME] = output
+				if instance is not None:
+					if callable(method):
+						args["instance"] = instance
+						output = method(**args)
+					else:
+						output = getattr(instance, method)(**args)
+					response[instance.__class__.NAME] = output
+				
 			except Exception as e:
+				AtomShieldsScanner._debug("[!] %s" % e)
 				pass
 		sys.path.remove(path)
 		return response
@@ -412,7 +416,6 @@ class AtomShieldsScanner(object):
 			instance.project = self.project
 			instance.path = self.path
 			return instance.run()
-
 
 		return AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.CHECKERS_DIR, method=__run, args={})
 
