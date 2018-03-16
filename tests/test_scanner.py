@@ -1,8 +1,10 @@
+# -*- coding:utf8 -*-
 import unittest
 from atomshields.scanner import AtomShieldsScanner
 import random
 import os
-class CheckerModule(unittest.TestCase):
+
+class ScannerTestSuite(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -18,22 +20,16 @@ class CheckerModule(unittest.TestCase):
     ### >>> Is "path" argument neccesary?
 
     def test_getClassName(self):
-        class_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),'data','class.py')
+        class_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),'dataset','class_empty.py')
         atomclass = AtomShieldsScanner('/tmp')
         class_name = atomclass._getClassName(class_path)
         self.assertEqual('Chusta', class_name)
 
     def test_getClassInstance(self):
-        class_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),'data','class.py')
+        class_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),'dataset','class_empty.py')
         class_instance = AtomShieldsScanner._getClassInstance(class_path)
-        print type(class_instance)
-        # self.assertEqual(CheckerModule(), class_instance)
+        self.assertTrue(class_instance.returnTrue())
 
-    # def test_executeMassiveMethod(self):
-    #     path = os.path.dirname(os.path.abspath(__file__))
-    #     atomclass = AtomShieldsScanner('/tmp')
-    #     print atomclass._executeMassiveMethod(path, 'test_getClassInstance')
-    #     # self.assertEqual(CheckerModule(), class_instance)
 
     #################################
     ###           SETTERS         ###
@@ -49,9 +45,9 @@ class CheckerModule(unittest.TestCase):
 
     def test_configFile_attribute(self):
         value = str(random.randrange(1000))
-        ass = AtomShieldsScanner('/tmp')
-        AtomShieldsScanner.configFile = value
-        self.assertEqual(os.path.abspath(value), AtomShieldsScanner.configFile)
+        atomshields = AtomShieldsScanner('/tmp')
+        atomshields.configFile = value
+        self.assertEqual(os.path.abspath(value), atomshields.configFile)
 
     def test_config_attribute(self):
         config = {'test': random.randrange(1000)}

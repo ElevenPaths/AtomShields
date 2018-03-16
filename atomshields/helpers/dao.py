@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*-coding:utf8 -*-
 
-import MySQLdb
+# import MySQLdb
 
 
 class Singleton(object):
@@ -44,11 +44,11 @@ class DAO(Singleton):
 		self._connect(host, username, password, dbname, port)
 
 
-	def _connect(self, host, username, password, dbname, port = 3306):
-		"""
-		Creates connection
-		"""
-		self.connection = MySQLdb.connect(host=host, user=username, passwd=password, db=dbname, port=port)
+    def _connect(self, host, username, password, dbname, port=3306):
+        """
+        Creates connection
+        """
+        self.connection = MySQLdb.connect(host=host, user=username, passwd=password, db=dbname, port=port)
 
 	def _get_cursor(self):
 		"""
