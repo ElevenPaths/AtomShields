@@ -36,7 +36,7 @@ class DAO(Singleton):
 
     """
 
-	def __init__(self, host, username, password, dbname, port = 3306, debug = False):
+    def __init__(self, host, username, password, dbname, port=3306, debug=False):
 		"""
 		Inits MySQL connection
 		"""

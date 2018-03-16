@@ -1,10 +1,5 @@
 #!/usr/bin/env python
 # -*- coding:utf8 -*-
-
-
-import sys
-import inspect
-import termcolor
 import subprocess
 
 class GenericChecker(object):
@@ -22,7 +17,7 @@ class GenericChecker(object):
 	def dao(self):
 		"""
 		Getter for 'dao' property
-	
+
 		Returns:
 			DAO: Instance of DAO class
 		"""
@@ -44,7 +39,7 @@ class GenericChecker(object):
 	def path(self):
 		"""
 		Getter for 'path' property
-	
+
 		Returns:
 			str: Absolute path to scan
 		"""
@@ -65,7 +60,7 @@ class GenericChecker(object):
 	def project(self):
 		"""
 		Getter for 'project' property
-	
+
 		Returns:
 			str: Project's name
 		"""
@@ -86,7 +81,7 @@ class GenericChecker(object):
 	def issues(self):
 		"""
 		Getter for 'issues' property
-	
+
 		Returns:
 			list<Issue>: List of instances of Issue class
 		"""
@@ -105,7 +100,7 @@ class GenericChecker(object):
 
 	def test(self):
 		"""
-		Check if the checker is OK to run. 
+		Check if the checker is OK to run.
 
 		This method should to run every test (requirements) in order to ensure the excution will not have errors.
 
@@ -124,7 +119,7 @@ class GenericChecker(object):
 		"""
 		pass
 
-	
+
 
 
 
@@ -136,7 +131,7 @@ class GenericChecker(object):
 		Args:
 			issue (Issue): Issue instance
 		"""
-		
+
 
 		self.issues.append(issue)
 
@@ -160,7 +155,7 @@ class GenericChecker(object):
 
 def checker(func):
 	"""
-	Decorator for method run. This method will be execute before the execution 
+	Decorator for method run. This method will be execute before the execution
 	from the method with this decorator.
 	"""
 	def execute(self, *args, **kwargs):
@@ -177,9 +172,6 @@ def checker(func):
 
 		except Exception as e:
 			desc = "Error en la ejecución del checker: %s" % e
-			print desc 
+			print desc
 
 	return execute
-
-
-

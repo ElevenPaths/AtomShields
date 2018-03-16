@@ -16,7 +16,7 @@ class TargetBlankChecker(GenericChecker):
 	}
 
 	REGEX = ur"(<a (?=.*href=(['\"])(https?:)?\/\/.*?\2)(?!.*rel=(['\"])(.*\bnoopener\b.*\bnoreferrer\b.*|.*\bnoreferrer\b.*\bnoopener\b.*)\4)[^>]*target=(['\"]?)_blank\6[^>]*)(>)([^<]*)(<\/a>)?"
-	
+
 	def __init__(self):
 		super(TargetBlankChecker, self).__init__()
 
@@ -40,7 +40,7 @@ class TargetBlankChecker(GenericChecker):
 			content = f.read()
 			f.close()
 
-			
+
 			prog = re.compile(TargetBlankChecker.REGEX, re.MULTILINE)
 			matches = prog.finditer(content)
 			matches_data = []

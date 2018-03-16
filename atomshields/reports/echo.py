@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf8 -*-
-
 from reports.base import GenericReport
-from termcolor import colored
-from atomshields import Issue
+
 
 class EchoReport(GenericReport):
 	"""
