@@ -4,6 +4,7 @@
 PASSWORD = '1'
 
 def sample():
+    return PASSWORD
 
 if __name__ == "__main__":
     sample()
