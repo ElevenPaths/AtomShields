@@ -406,7 +406,15 @@ class AtomShieldsScanner(object):
 
 
 	def executeCheckers(self):
-		return AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.CHECKERS_DIR, method="run", args={})
+
+
+		def __run(instance):
+			instance.project = self.project
+			instance.path = self.path
+			instance.run()
+
+
+		return AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.CHECKERS_DIR, method=__run, args={})
 
 	def executeReports(self):
 		return AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.REPORTS_DIR, method="run", args={"issues": self.issues})
@@ -488,10 +496,12 @@ class AtomShieldsScanner(object):
 
 if __name__ == "__main__":
 
-	AtomShieldsScanner.generateConfig(show = True)
+	# AtomShieldsScanner.generateConfig(show = True)
 
-	# instance = AtomShieldsScanner("atomshields", verbose=True)
+	instance = AtomShieldsScanner("atomshields", verbose=True)
 
-	# instance.project = "Defcon-Doctor"
+	instance.project = "Defcon-Doctor"
 
-	# instance.run()
+	instance.setup()
+
+	instance.run()

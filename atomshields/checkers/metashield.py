@@ -33,7 +33,7 @@ class MetashieldChecker(GenericChecker):
 
 
 	def run(self):
-		print "Run de metashield"
+		print "Run Metashield"
 
 
 
