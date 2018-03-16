@@ -5,6 +5,7 @@
 import sys
 import inspect
 import termcolor
+import subprocess
 
 class GenericChecker(object):
 
@@ -139,6 +140,22 @@ class GenericChecker(object):
 
 		self.issues.append(issue)
 
+	@staticmethod
+	def isInstalled(value):
+		"""
+		"""
+		function = """
+		function is_installed {
+		  # set to 1 initially
+		  local return_=1
+		  # set to 0 if not found
+		  type $1 >/dev/null 2>&1 || { local return_=0; }
+		  # return value
+		  echo "$return_"
+		}"""
+		command = "/bin/bash -c '{f}; echo $(is_installed \"{arg}\")'".format(f=function, arg=value)
+		output = subprocess.check_output(command, shell = True)
+		return "1" in output
 
 
 def checker(func):

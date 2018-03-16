@@ -510,6 +510,7 @@ if __name__ == "__main__":
 	else:
 		path = "/tmp"
 
+
 	instance = AtomShieldsScanner(path, verbose=True)
 
 	instance.project = "Defcon-Doctor"
