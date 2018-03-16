@@ -395,10 +395,10 @@ class AtomShieldsScanner(object):
 				instance= AtomShieldsScanner._getClassInstance(path = file, args = {})
 				if callable(method):
 					args["instance"] = instance
-					method(**args)
+					output = method(**args)
 				else:
 					output = getattr(instance, method)(**args)
-					response[instance.__class__.NAME] = output
+				response[instance.__class__.NAME] = output
 			except Exception as e:
 				pass
 		sys.path.remove(path)
@@ -411,7 +411,7 @@ class AtomShieldsScanner(object):
 		def __run(instance):
 			instance.project = self.project
 			instance.path = self.path
-			instance.run()
+			return instance.run()
 
 
 		return AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.CHECKERS_DIR, method=__run, args={})
@@ -497,8 +497,12 @@ class AtomShieldsScanner(object):
 if __name__ == "__main__":
 
 	# AtomShieldsScanner.generateConfig(show = True)
+	if len(sys.argv) > 1:
+		path = sys.argv[1]
+	else:
+		path = "/tmp"
 
-	instance = AtomShieldsScanner("atomshields", verbose=True)
+	instance = AtomShieldsScanner(path, verbose=True)
 
 	instance.project = "Defcon-Doctor"
 
