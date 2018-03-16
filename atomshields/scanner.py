@@ -399,8 +399,11 @@ class AtomShieldsScanner(object):
 						args["instance"] = instance
 						output = method(**args)
 					else:
-						output = getattr(instance, method)(**args)
-					response[instance.__class__.NAME] = output
+						if hasattr(instance, method):
+							output = getattr(instance, method)(**args)
+							response[instance.__class__.NAME] = output
+						else:
+							continue
 				
 			except Exception as e:
 				AtomShieldsScanner._debug("[!] %s" % e)
