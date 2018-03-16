@@ -15,7 +15,6 @@ class TargetBlankChecker(GenericChecker):
 		"exclude_paths": ["test/", "docs/"]
 	}
 
-	# REGEX = """(<a (?=.*href=(['\"])(https?:)?\/\/.*?\2)(?!.*rel=(['\"])(.*\bnoopener\b.*\bnoreferrer\b.*|.*\bnoreferrer\b.*\bnoopener\b.*)\4)[^>]*target=(['\"]?)_blank\6[^>]*)(>)([^<]*)(<\/a>)?"""
 	REGEX = ur"(<a (?=.*href=(['\"])(https?:)?\/\/.*?\2)(?!.*rel=(['\"])(.*\bnoopener\b.*\bnoreferrer\b.*|.*\bnoreferrer\b.*\bnoopener\b.*)\4)[^>]*target=(['\"]?)_blank\6[^>]*)(>)([^<]*)(<\/a>)?"
 	
 	def __init__(self):
@@ -55,7 +54,7 @@ class TargetBlankChecker(GenericChecker):
 			issue.file = line.replace(self.path, "")
 			issue.severity = Issue.SEVERITY_MEDIUM
 			details = ["""It has been found that your 'a' tags with attribute target="_blank" don't have the attribute rel="noopener", and this makes possible to carry out phishing attacks.""",
-			"Files affected:"] 
+			"Lines affected:"] 
 			details += matches_data
 			issue.details = "\n".join(details)
 
