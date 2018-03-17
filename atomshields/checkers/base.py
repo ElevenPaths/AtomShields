@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding:utf8 -*-
 import subprocess
 
@@ -19,7 +18,7 @@ class GenericChecker(object):
 		Getter for 'dao' property
 
 		Returns:
-			DAO: Instance of DAO class
+			atomshield.helpers.DAO: Instance of DAO class
 		"""
 		return self._dao
 
@@ -29,7 +28,7 @@ class GenericChecker(object):
 		Setter for 'dao' property
 
 		Args:
-			value (DAO): Instance of DAO class
+			value (atomshield.helpers.DAO): Instance of DAO class
 
 		"""
 		self._dao = value
@@ -83,7 +82,7 @@ class GenericChecker(object):
 		Getter for 'issues' property
 
 		Returns:
-			list<Issue>: List of instances of Issue class
+			list<atomshields.helpers.Issue>: List of instances of Issue class
 		"""
 		return self._issues
 
@@ -93,7 +92,7 @@ class GenericChecker(object):
 		Setter for 'issues' property
 
 		Args:
-			value (list): List of Issue objects
+			value (list<atomshields.helpers.Issue>): List of Issue objects
 
 		"""
 		self._issues = value
@@ -129,7 +128,7 @@ class GenericChecker(object):
 		Stores an issue in 'issues' property
 
 		Args:
-			issue (Issue): Issue instance
+			issue (atomshields.helpers.Issue): Issue instance
 		"""
 
 

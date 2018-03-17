@@ -1,6 +1,5 @@
-#!/usr/bin/env python
 # -*- coding:utf8 -*-
-from reports.base import GenericReport
+from base import GenericReport
 
 
 class EchoReport(GenericReport):

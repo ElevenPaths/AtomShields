@@ -1,4 +1,4 @@
-from atomshields.helpers.dao import DAO
-from atomshields.helpers.issue import Issue
+from dao import DAO
+from issue import Issue
 
 __all__ = ['DAO', 'Issue']

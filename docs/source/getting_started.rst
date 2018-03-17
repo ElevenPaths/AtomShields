@@ -1,110 +1,108 @@
-===============
+
 Getting started
 ===============
 
-.. requirements-section
+.. badges-section
 
-************
-Requirements
-************
+|Build| |Codacy| |Coverage|
 
-Awspice is an abstraction layer of AWS, so it will be necessary to meet the following requirements:
+.. |Docs| image:: https://readthedocs.org/projects/atomshields/badge/?version=latest
+   :target: http://atomshields.readthedocs.io/en/latest/?badge=latest
+   :alt: Read the Docs
+.. |Version| image:: http://img.shields.io/pypi/v/atomshields.svg?style=flat
+   :target: https://pypi.python.org/pypi/atomshields/
+   :alt: Version
+.. |Build| image:: https://travis-ci.com/ElevenPaths/AtomShields.svg?token=gsrNB2DciSs6qu19pJHD&branch=master
+   :target: https://travis-ci.com/ElevenPaths/AtomShields
+   :alt: Build
+.. |Codacy| image:: https://api.codacy.com/project/badge/Grade/46c76e50709e4079828d5fecafa60473
+   :target: https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ElevenPaths/AtomShields&amp;utm_campaign=Badge_Grade
+   :alt: Codacy
+.. |Coverage| image:: https://api.codacy.com/project/badge/Coverage/46c76e50709e4079828d5fecafa60473
+   :target: https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ElevenPaths/AtomShields&amp;utm_campaign=Badge_Coverage
+   :alt: Coverage
 
-+---------------------+-------------------------------------------------------------+
-| We just need ...    | And it means...                                             |
-+=====================+=============================================================+
-| **AWS account**     | Have an Amazon Web Services account of any kind             |
-+---------------------+-------------------------------------------------------------+
-| **IAM user**        | Enabled user with programmatic keys (access and secret key) |
-+---------------------+-------------------------------------------------------------+
-| **Permissions**     | Have permissions in the services and regions to use         |
-+---------------------+-------------------------------------------------------------+
+.. end-badges-section
 
+.. whatis-section
+
+What is AtomShields?
+--------------------
+
+Security testing framework for repositories and source code.
+
+This system has different modules that detect different vulnerabilities or files that may
+expose a risk, and the results obtained can be obtained or sent thanks to the reporting modules.
+
+*For developers*: There is also the possibility to develop your own vulnerability detection
+(called checkers) or reporting modules. This tool offers certain facilities for those who
+want to implement their own modules, publish them and integrate them into the official ElevenPaths tool.
+
+.. end-whatis-section
 
 ------------------------------------------------------------------------------------------
 
 .. installation-section
 
-************
+
 Installation
-************
+------------
 
-.. code-block:: bash
+.. code-block:: shell
 
-  pip install awspice
-
-
-------------------------------------------------------------------------------------------
-
-.. configuration-section
-
-*************
-Configuration
-*************
-
-The client is built and configured using ``awspice.connect()``. This method indicates the type of authentication and region on which you are going to work.
-There are two ways to set your credentials *(Only one of the two can be used)*:
-* **Profile** *(Recommended)* ─ The access keys are stored in ``~/.aws/credentials`` file. (`Read more <https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html>`_)
-* **Access keys** ─ Typing the hard-coded access keys.
-
-+-----------------+-----------------+-------------------------------------------------+
-| Parameter name  | Default value   | Description                                     |
-+=================+=================+=================================================+
-| region          | eu-west-1       | Region on which you are going to work.          |
-+-----------------+-----------------+-------------------------------------------------+
-| profile         | default         | Name of the profile in ~/.aws/credentials file  |
-+-----------------+-----------------+-------------------------------------------------+
-| access_key      |                 | User API access key                             |
-+-----------------+-----------------+-------------------------------------------------+
-| secret_key      |                 | User API secret key                             |
-+-----------------+-----------------+-------------------------------------------------+
+  pip install atomshields
 
 
-.. code-block:: python
-
-  import awspice
-
-  aws = awspice.connect() # Region: eu-west-1 | Profile: Default
-
-  aws = awspice.connect(region='us-west-2', profile='dev_profile')
-  aws = awspice.connect('us-west-2', access_key='AKIA***********', secret_key='/HR$4************')
-
+.. end-installation-section
 
 ------------------------------------------------------------------------------------------
 
-.. test-section
+.. usage-section
 
-*******
-Test it
-*******
-
-To verify that the configuration has been correctly stored, you can run the following test.
-This test only checks that your user is registered and enabled on the AWS account set in the client's configuration.
+Basic usage
+-----------
 
 .. code-block:: python
 
-  import awspice
+  import atomshields
 
-  aws = awspice.connect(profile='<YOUR_PROFILE>')
-  aws.test()
+  atoms = atomshields.AtomShieldsScanner('./MyRepo/')
+  atoms.project = "MyRepoName"
 
+  issues = atoms.executeCheckers()
+
+
+.. end-usage-section
 
 ------------------------------------------------------------------------------------------
 
-.. boto3-section
+.. tests-section
 
-******************
-Using boto3 client
-******************
-
-If you want to use the native Boto3 client to perform some operation, you can also do it using the "client" attribute within each service.
-If you call the client through the class *ec2*, this will be the service on which the client will be configured.
-The region and authentication will be the same as the last call made.
-
+Run tests
+---------
 
 .. code-block:: python
 
-  import awspice
+  # If you are in AtomShields directory
+  pip install -r requirements-dev.txt
+  py.test tests/
 
-  aws = awspice.connect(region='us-east-1', profile='sample')
-  aws.service.ec2.client.describe_instance_status(InstanceIds=['i-12345'])
+.. end-tests-section
+
+------------------------------------------------------------------------------------------
+
+.. docs-section
+
+Generate docs
+-------------
+
+.. code-block:: shell
+
+  # If you are in AtomShields directory
+  pip install -r requirements-dev.txt
+  cd docs
+  make html
+
+.. end-docs-section
+
+------------------------------------------------------------------------------------------

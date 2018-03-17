@@ -1,7 +1,6 @@
-#!/usr/bin/env python
 # -*- coding:utf8 -*-
+from base import GenericReport
 
-from reports.base import GenericReport
 
 class HttpReport(GenericReport):
 	"""

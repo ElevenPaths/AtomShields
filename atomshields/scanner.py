@@ -1,17 +1,14 @@
-#!/usr/bin/env python
 # -*- coding:utf8 -*-
-
 import os
 import tempfile
 import shutil
 import glob
 import ast
 import sys
-
 from datetime import datetime
 from ConfigParser import ConfigParser
 from termcolor import colored
-from atomshields.helpers.issue import Issue
+from helpers import Issue
 
 class AtomShieldsScanner(object):
 	"""
@@ -19,10 +16,9 @@ class AtomShieldsScanner(object):
 	"""
 
 
-	"""
-	Static block. Check if paths are writable and change it else
-	"""
-
+	# Static block.
+	# Check if paths are writable and change it else
+	
 	HOME = "/usr/local/share/atomshields"
 	HOME_2 = os.path.expanduser("~/.atomshields")
 
@@ -32,7 +28,7 @@ class AtomShieldsScanner(object):
 	else:
 		CHECKERS_DIR = os.path.join(HOME, "checkers")
 		REPORTS_DIR = os.path.join(HOME, "reports")
-		
+
 	CONFIG_PATH = os.path.expanduser("~/.atomshields/config")
 
 	def __init__(self, path, verbose = False):
@@ -405,7 +401,7 @@ class AtomShieldsScanner(object):
 							response[instance.__class__.NAME] = output
 						else:
 							continue
-				
+
 			except Exception as e:
 				AtomShieldsScanner._debug("[!] %s" % e)
 				pass

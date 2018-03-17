@@ -1,7 +1,6 @@
-#!/usr/bin/env python
 # -*- coding:utf8 -*-
+from base import *
 
-from base import GenericChecker
 
 class PasswordsCheckers(GenericChecker):
 
@@ -9,7 +8,7 @@ class PasswordsCheckers(GenericChecker):
 	DESCRIPTION = """Identifica patrones que puedan suponer un password hardcodeado"""
 	CONFIG = {
 		"enabled": True,
-		"exclude_paths": ["test/", "docs/", "qa/"] 
+		"exclude_paths": ["test/", "docs/", "qa/"]
 	}
 
 	def __init__(self):

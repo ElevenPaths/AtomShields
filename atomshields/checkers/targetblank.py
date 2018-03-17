@@ -1,10 +1,8 @@
-#!/usr/bin/env python
 # -*- coding:utf8 -*-
-
+import re
+import subprocess
 from base import *
 from atomshields import Issue
-import subprocess
-import re
 
 class TargetBlankChecker(GenericChecker):
 
@@ -55,7 +53,7 @@ class TargetBlankChecker(GenericChecker):
 				issue.file = line.replace(self.path, "")
 				issue.severity = Issue.SEVERITY_MEDIUM
 				details = ["""It has been found that your 'a' tags with attribute target="_blank" don't have the attribute rel="noopener", and this makes possible to carry out phishing attacks.""",
-				"Lines affected:"] 
+				"Lines affected:"]
 				details += matches_data
 				issue.details = "\n".join(details)
 

@@ -1,10 +1,7 @@
-#!/usr/bin/env python
 # -*- coding:utf8 -*-
-
-# from base import GenericChecker
+import subprocess
 from base import *
 from atomshields import Issue
-import subprocess
 
 class DSStoreChecker(GenericChecker):
 
@@ -37,12 +34,8 @@ class DSStoreChecker(GenericChecker):
 			issue.name = "File .DS_Store detected"
 			issue.potential = False
 			issue.severity = Issue.SEVERITY_LOW
-			
+
 			# Get only relative path
 			issue.file = f.replace(self.path, "")
 
 			self.saveIssue(issue)
-
-
-
-

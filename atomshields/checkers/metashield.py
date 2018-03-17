@@ -1,7 +1,6 @@
-#!/usr/bin/env python
 # -*- coding:utf8 -*-
+from base import *
 
-from base import GenericChecker
 
 class MetashieldChecker(GenericChecker):
 
@@ -34,8 +33,3 @@ class MetashieldChecker(GenericChecker):
 
 	def run(self):
 		print "Run Metashield"
-
-
-
-
-		

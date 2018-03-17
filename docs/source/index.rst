@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to AtomShields's documentation!
-=======================================
+AtomShields's documentation
+===========================
 
 .. toctree::
   :hidden:
@@ -13,10 +13,39 @@ Welcome to AtomShields's documentation!
 
   Getting started <getting_started.rst>
   Checkers <checkers.rst>
-  Report <getting_started.rst>
-  FAQs & Troubleshooting <getting_started.rst>
+  Reports <reports.rst>
+
+.. toctree::
+  :hidden:
+  :maxdepth: 0
+  :caption: Site map:
+
+  AtomShields Module <modules.rst>
 
 
+.. include:: getting_started.rst
+  :start-after: badges-section
+  :end-before: end-badges-section
+
+
+.. include:: getting_started.rst
+  :start-after: whatis-section
+  :end-before: end-whatis-section
+
+------------------------------------------------------------------------------------------
+
+
+.. include:: getting_started.rst
+  :start-after: installation-section
+  :end-before: end-installation-section
+
+------------------------------------------------------------------------------------------
+
+.. include:: getting_started.rst
+  :start-after: usage-section
+  :end-before: end-usage-section
+
+------------------------------------------------------------------------------------------
 
 Indices and tables
 ==================
