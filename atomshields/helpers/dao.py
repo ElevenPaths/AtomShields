@@ -1,7 +1,5 @@
 # -*-coding:utf8 -*-
-
-# import MySQLdb
-
+import sqlite3
 
 class Singleton(object):
     """
@@ -35,28 +33,32 @@ class DAO(Singleton):
 
     """
 
-    def __init__(self, host, username, password, dbname, port=3306, debug=False):
+    def __init__(self, database, debug=False):
 		"""
 		Inits MySQL connection
 		"""
 		self.debug = debug
-		self._connect(host, username, password, dbname, port)
+		self._connect(database=database)
 
 
-    def _connect(self, host, username, password, dbname, port=3306):
+    def _connect(self, database):
         """
         Creates connection
         """
-        self.connection = MySQLdb.connect(host=host, user=username, passwd=password, db=dbname, port=port)
+        try:
+            conn = sqlite3.connect(database)
+            if conn.open:
+                self.connection = conn
+            else:
+                raise ValueError('Could not connect to database %s' % database)
+        except FileNotFoundError:
+            self.debug("Database '%s' not found" % database)
+
 
 	def _get_cursor(self):
 		"""
-		Pings connection and returns cursor
+		Return cursor
 		"""
-		try:
-		    self.connection.ping()
-		except MySQLdb.InterfaceError:
-		    self._connect()
 		return self.connection.cursor()
 
 
