@@ -1,3 +1,3 @@
 from test_scanner import TestScanner
-from test_checker_dsstore import TestDSStoreChecker
-from test_checker_targetblank import TestTargetBlankChecker
+from test_reports import TestReports
+from test_checkers import TestCheckers
