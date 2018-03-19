@@ -55,7 +55,7 @@ class DAO(Singleton):
 		"""
 		try:
 		    self.connection.ping()
-		except:
+		except MySQLdb.InterfaceError:
 		    self._connect()
 		return self.connection.cursor()
 

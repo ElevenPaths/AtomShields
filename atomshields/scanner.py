@@ -38,13 +38,15 @@ class AtomShieldsScanner(object):
 		self.verbose = verbose
 
 	@staticmethod
-	def _debug(message, color=None, attrs=[]):
+	def _debug(message, color=None, attrs=None):
 		"""
 		Print a message if the class attribute 'verbose' is enabled
 
 		Args:
 			message (str): Message to print
 		"""
+		if attrs is None:
+			attrs = []
 		if color is not None:
 			print colored(message, color, attrs=attrs)
 		else:
@@ -53,8 +55,10 @@ class AtomShieldsScanner(object):
 			else:
 				print message
 
-	def debug(self, message, color=None, attrs=[]):
+	def debug(self, message, color=None, attrs=None):
 		if self.verbose:
+			if attrs is None:
+				attrs = []
 			AtomShieldsScanner._debug(message, color=color, attrs=attrs)
 
 	@property
@@ -296,7 +300,9 @@ class AtomShieldsScanner(object):
 		return [n for n in node.body if isinstance(n, ast.ClassDef)][0].name
 
 	@staticmethod
-	def _getFiles(path, extension="*.py", exclude=[]):
+	def _getFiles(path, extension="*.py", exclude=None):
+		if exclude is None:
+			exclude = []
 		_p = os.path.join(path, extension)
 		return [fn for fn in glob.glob(_p) if not os.path.basename(fn) in exclude]
 
