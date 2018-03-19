@@ -181,7 +181,7 @@ class Issue(object):
 		"""
 		self._checker_name = value
 
-	def __dict__(self):
+	def __todict__(self):
 		"""
 		Returns a dictionary with the class representation
 
@@ -205,7 +205,7 @@ class Issue(object):
 
 			str: JSON class representation
 		"""
-		return json.dumps(self.__dict__())
+		return json.dumps(self.__todict__())
 
 	def __unicode__(self):
 		"""

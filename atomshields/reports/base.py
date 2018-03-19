@@ -6,7 +6,7 @@ class GenericReport(object):
 	Class inherited by all reporting modules.
 	"""
 
-	def __init__(self, issues = []):
+	def __init__(self, issues = None):
 		"""
 		Class constructor.
 
@@ -26,6 +26,8 @@ class GenericReport(object):
 		Returns:
 			list: List of `Issue` instances
 		"""
+		if self._issues is None:
+			return []
 		return self._issues
 
 	@issues.setter

@@ -39,7 +39,7 @@ class HttpReport(GenericReport):
 			options['proxies'] = {"http": self.config['proxy'], "https": self.config['proxy']}
 
 		options["url"] = self.config['url']
-		options["data"] = {"issues": json.dumps(map(lambda x: x.__dict__(), self.issues))}
+		options["data"] = {"issues": json.dumps(map(lambda x: x.__todict__(), self.issues))}
 
 		if 'get' == self.config['method'].lower():
 			requests.get(**options)
