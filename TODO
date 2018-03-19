@@ -1,0 +1,9 @@
+Things that need doing - volunteers most welcome!
+
+[ ] - Translate GenericChecker.isInstalled() from Bash to Python
+[ ] - Replace hardcoded '/tmp' directory by python temp files
+[ ] - Reduce requirements (for instance, termcolors by bColors-class)
+[ ] - TESTS: End to end
+[ ] - TESTS: Validate installation process
+[ ] - DOCS: Asciinema for README.rst
+[ ] - DOCS: Developer section (how-to)

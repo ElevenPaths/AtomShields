@@ -18,7 +18,7 @@ class GenericReport(object):
 		self._project = None
 		self.issues = issues
 
-	@property 
+	@property
 	def issues(self):
 		"""
 		Getter for 'issues' property
@@ -41,7 +41,7 @@ class GenericReport(object):
 		"""
 		self._issues = value
 
-	@property 
+	@property
 	def config(self):
 		"""
 		Getter for 'config' property
@@ -62,7 +62,7 @@ class GenericReport(object):
 		"""
 		self._config = value
 
-	@property 
+	@property
 	def project(self):
 		"""
 		Getter for 'project' property
@@ -82,5 +82,3 @@ class GenericReport(object):
 
 		"""
 		self._project = value
-
-

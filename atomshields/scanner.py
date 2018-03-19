@@ -350,9 +350,9 @@ class AtomShieldsScanner(object):
 		response = {}
 		sys.path.append(path)
 		exclude = ["__init__.py", "base.py"]
-		for file in AtomShieldsScanner._getFiles(path, "*.py", exclude=exclude):
+		for ffile in AtomShieldsScanner._getFiles(path, "*.py", exclude=exclude):
 			try:
-				instance= AtomShieldsScanner._getClassInstance(path = file, args = classArgs)
+				instance = AtomShieldsScanner._getClassInstance(path = ffile, args = classArgs)
 				if instance is not None:
 					if callable(method):
 						args["instance"] = instance

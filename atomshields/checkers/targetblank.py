@@ -1,6 +1,6 @@
 # -*- coding:utf8 -*-
 import re
-from base import *
+from base import GenericChecker, checker
 from atomshields import Issue, CommandHelper
 
 class TargetBlankChecker(GenericChecker):

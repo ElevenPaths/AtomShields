@@ -1,6 +1,5 @@
 # -*- coding:utf8 -*-
-
-from base import *
+from base import GenericChecker, checker
 from atomshields import Issue, CommandHelper
 
 class DSStoreChecker(GenericChecker):
