@@ -1,5 +1,5 @@
 # -*- coding:utf8 -*-
-from reports.base import GenericReport
+from base import GenericReport
 import requests, json
 
 
@@ -23,11 +23,11 @@ class HttpReport(GenericReport):
 		"proxy": "http://127.0.0.1:8080"
 	}
 
-	def __init__(self, *args, **kwrds):
+	def __init__(self, *args, **kwargs):
 		"""
 		Class constuctor. Must call parent constructor
 		"""
-		super(HttpReport, self).__init__(*args, **kwrds)
+		super(HttpReport, self).__init__(*args, **kwargs)
 
 	def run(self):
 		"""
@@ -45,5 +45,3 @@ class HttpReport(GenericReport):
 			requests.get(**options)
 		else:
 			requests.post(**options)
-
-

@@ -30,14 +30,13 @@ class Issue(object):
 	SEVERITY_HIGH = "High"
 	SEVERITY_CRITICAL = "Critical"
 
-
-	def __init__(self):
-		self._name = None
-		self._file = None
-		self._details = None
-		self._severity = None
-		self._potential = False
-		self._checker_name = None
+	def __init__(self, name=None, file=None, details=None, severity=None, potential=None, checker_name=None):
+		self.name = name
+		self.file = file
+		self.details = details
+		self.severity = severity
+		self.potential = potential
+		self.checker_name = checker_name
 
 
 	@property

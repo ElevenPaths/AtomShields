@@ -1,5 +1,5 @@
 # -*- coding:utf8 -*-
-from reports.base import GenericReport
+from base import GenericReport
 
 
 class EchoReport(GenericReport):
@@ -18,8 +18,8 @@ class EchoReport(GenericReport):
 		"enabled": True,
 	}
 
-	def __init__(self, *args, **kwrds):
-		super(EchoReport, self).__init__(*args, **kwrds)
+	def __init__(self, *args, **kwargs):
+		super(EchoReport, self).__init__(*args, **kwargs)
 
 	def run(self):
 
