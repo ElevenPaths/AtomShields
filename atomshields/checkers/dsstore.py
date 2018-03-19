@@ -35,7 +35,7 @@ class DSStoreChecker(GenericChecker):
 
 			# Ignore paths excluded
 			rel_path = f.replace(self.path, "")
-			if rel_path.startswith(tuple(self.config['exclude_paths'])):
+			if rel_path.startswith(tuple(self.CONFIG['exclude_paths'])):
 				continue
 
 			issue = Issue()
