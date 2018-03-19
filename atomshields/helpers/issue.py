@@ -1,5 +1,6 @@
 # -*- coding:utf8 -*-
 
+import json
 
 class Issue(object):
 	"""
@@ -179,3 +180,39 @@ class Issue(object):
 
 		"""
 		self._checker_name = value
+
+	def __dict__(self):
+		"""
+		Returns a dictionary with the class representation
+
+		Returns:
+			dict: class representarion
+		"""
+		return {
+			"name": self.name,
+			"file": self.file,
+			"details": self.details,
+			"severity": self.severity,
+			"potential": self.potential,
+			"checker": self.checker
+		}
+
+	def __str__(self):
+		"""
+		Return a JSON class representation
+
+		Returns:
+
+			str: JSON class representation
+		"""
+		return json.dumps(self.__dict__())
+
+	def __unicode__(self):
+		"""
+		Return a JSON class representation (unicode)
+
+		Returns:
+
+			unicode: JSON class representation
+		"""
+		return unicode(self.__str__())

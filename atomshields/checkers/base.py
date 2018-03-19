@@ -100,6 +100,27 @@ class GenericChecker(object):
 		"""
 		self._issues = value
 
+	@property 
+	def config(self):
+		"""
+		Getter for 'config' property
+
+		Returns:
+			dict: Dictionary which contains the current values for this report config
+		"""
+		return self._config
+
+	@config.setter
+	def config(self, value):
+		"""
+		Setter for 'config' property
+
+		Args:
+			value (dict): Dictionary which contains the current values for this report config
+
+		"""
+		self._config = value
+
 	def test(self):
 		"""
 		Check if the checker is OK to run.
@@ -162,6 +183,7 @@ def checker(func):
 	"""
 	def execute(self, *args, **kwargs):
 		try:
+			print "[>] Executing {n} checker. . . ".format(n=self.__class__.NAME)
 			if hasattr(self, 'test'):
 				if self.test():
 					func(self, *args, **kwargs)

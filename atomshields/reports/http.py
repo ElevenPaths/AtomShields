@@ -1,6 +1,6 @@
 # -*- coding:utf8 -*-
 from reports.base import GenericReport
-import requests
+import requests, json
 
 
 class HttpReport(GenericReport):
@@ -18,7 +18,9 @@ class HttpReport(GenericReport):
 	CONFIG = {
 		"enabled": False,
 		"url": "<your_endpoint>",
-		"method": "post"
+		"method": "post",
+		"use_proxy": False,
+		"proxy": "http://127.0.0.1:8080"
 	}
 
 	def __init__(self, *args, **kwrds):
@@ -32,4 +34,16 @@ class HttpReport(GenericReport):
 		Method executed dynamically by framework. This method will do a http request to
 		endpoint setted into config file with the issues and other data.
 		"""
-		pass
+		options = {}
+		if bool(self.config['use_proxy']):
+			options['proxies'] = {"http": self.config['proxy'], "https": self.config['proxy']}
+
+		options["url"] = self.config['url']
+		options["data"] = {"issues": json.dumps(map(lambda x: x.__dict__(), self.issues))}
+
+		if 'get' == self.config['method'].lower():
+			r = requests.get(**options)
+		else:
+			r = requests.post(**options)
+
+

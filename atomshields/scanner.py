@@ -216,6 +216,7 @@ class AtomShieldsScanner(object):
 		def __addConfig(instance, config, parent_section):
 			try:
 				section_name = "{p}/{n}".format(p = parent_section, n=instance.NAME)
+				print section_name
 				config.add_section(section_name)
 				for k in instance.CONFIG.keys():
 					config.set(section_name, k, instance.CONFIG[k])
@@ -300,21 +301,29 @@ class AtomShieldsScanner(object):
 		if self.project is None:
 			raise Exception("Path is required")
 
-	def dumpConfig(self):
+	def getConfig(self, section = None):
 		"""
-		Returns a dictionary which contains the current config
+		Returns a dictionary which contains the current config. If a section is setted,
+		only will returns the section config
+
+		Args:
+			section (str): (Optional) Section name. 
 
 		Returns:
 			dict: Representation of current config
 		"""
 		data = {}
-		for s in self.config.sections():
-			if '/' in s:
-				# Subsection
-				parent, _s = s.split('/')
-				data[parent][_s] = dict(self.config.items(s))
-			else:
-				data[s] = dict(self.config.items(s))
+		if section is None:
+			for s in self.config.sections():
+				if '/' in s:
+					# Subsection
+					parent, _s = s.split('/')
+					data[parent][_s] = dict(self.config.items(s))
+				else:
+					data[s] = dict(self.config.items(s))
+		else:
+			# Only one section will be returned
+			data = dict(self.config.items(section))
 		return data
 
 
@@ -415,12 +424,35 @@ class AtomShieldsScanner(object):
 		def __run(instance):
 			instance.project = self.project
 			instance.path = self.path
-			return instance.run()
+			section = 'checkers/{n}'.format(n = instance.__class__.NAME)
+
+			instance.config = self.getConfig(section = section)
+			if self.config.has_option(section, 'enabled'):
+				enabled = self.config.getboolean(section, 'enabled')
+				if enabled:
+					return instance.run()
+			else:
+				return instance.run()
 
 		return AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.CHECKERS_DIR, method=__run, args={})
 
 	def executeReports(self):
-		return AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.REPORTS_DIR, method="run", args={}, classArgs={"issues": self.issues})
+
+		# Get the current report config
+		def _run(instance):
+			instance.project = self.project
+			section = 'reports/{n}'.format(n = instance.__class__.NAME)
+			instance.config = self.getConfig(section = section)
+
+			if self.config.has_option(section, 'enabled'):
+				enabled = self.config.getboolean(section, 'enabled')
+				if enabled:
+					return instance.run()
+			else:
+				return instance.run()
+
+
+		return AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.REPORTS_DIR, method=_run, args={}, classArgs={"issues": self.issues})
 
 
 	def saveIssue(self, issue):
@@ -501,6 +533,7 @@ class AtomShieldsScanner(object):
 if __name__ == "__main__":
 
 	# AtomShieldsScanner.generateConfig(show = True)
+	# sys.exit()
 	if len(sys.argv) > 1:
 		path = sys.argv[1]
 	else:
