@@ -17,6 +17,8 @@ class DSStoreChecker(GenericChecker):
 		super(DSStoreChecker, self).__init__()
 
 
+
+
 	@checker
 	def run(self):
 		"""
@@ -31,12 +33,17 @@ class DSStoreChecker(GenericChecker):
 			if not f.endswith(filename):
 				continue
 
+			# Ignore paths excluded
+			rel_path = f.replace(self.path, "")
+			if rel_path.startswith(tuple(self.config['exclude_paths'])):
+				continue
+
 			issue = Issue()
 			issue.name = "File .DS_Store detected"
 			issue.potential = False
 			issue.severity = Issue.SEVERITY_LOW
 
 			# Get only relative path
-			issue.file = f.replace(self.path, "")
+			issue.file = rel_path
 
 			self.saveIssue(issue)
