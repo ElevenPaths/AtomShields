@@ -1,6 +1,8 @@
 # -*- coding:utf8 -*-
 import pytest
 import os
+import sys
+from cStringIO import StringIO
 from atomshields.reports import *
 from atomshields import Issue
 
@@ -20,10 +22,16 @@ class TestReports():
         report = EchoReport()
         assert report.CONFIG['enabled']
 
-    # def test_EchoReport_run(self):
-    #     report = EchoReport()
-    #     report.issues = [Issue('Sample', '/tmp.ini', severity="Info",potential=True)]
-    #     output = report.run()
+    def test_EchoReport_run(self):
+        headers = '{:<40}  {:<20} {:<40}'.format("Vulnerability", "Severity", "File affected")
+        results = '{:<40}  {:<20} {:<40}'.format("Sample", "INFO", '/tmp.ini')
+
+        report = EchoReport()
+        report.issues = [Issue('Sample', '/tmp.ini', severity="Info")]
+        with Capturing() as output:
+            report.run()
+        assert headers in output
+        assert results in output
 
 
     #################################
@@ -34,3 +42,13 @@ class TestReports():
     #     report = HttpReport()
     #     report.issues = [Issue('Sample', '/tmp.ini', severity="Info",potential=True)]
     #     assert not report.CONFIG['enabled']
+
+class Capturing(list):
+    def __enter__(self):
+        self._stdout = sys.stdout
+        sys.stdout = self._stringio = StringIO()
+        return self
+    def __exit__(self, *args):
+        self.extend(self._stringio.getvalue().splitlines())
+        del self._stringio    # free up some memory
+        sys.stdout = self._stdout
