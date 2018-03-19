@@ -1,6 +1,5 @@
 # -*- coding:utf8 -*-
 import os
-import tempfile
 import shutil
 import glob
 import ast
@@ -232,55 +231,6 @@ class AtomShieldsScanner(object):
 		config.set("reports", "enabled", True)
 		AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.REPORTS_DIR, method=__addConfig, args={"config": config, "parent_section": "reports"})
 
-
-
-		# config.add_section("reports")
-		# config.set("reports", "enabled", True)
-
-		# exclude = ["__init__.py", "base.py"]
-		# for file in getFiles(REPORTS_DIR, "*.py", exclude=exclude):
-		# 	_class = getClass(file)
-		# 	basename = os.path.basename(file).replace(".py", "")
-		# 	sys.path.append(ROOT_DIR)
-		# 	try:
-		# 		mod = __import__("reports.{b}".format(b=basename), globals(), locals(), [_class.name], -1)
-		# 		instance = getattr(mod, _class.name)
-		# 		section_name = "reports/{name}".format(name=instance.NAME)
-		# 		config.add_section(section_name)
-		# 		for k in instance.CONFIG.keys():
-		# 			config.set(section_name, k, instance.CONFIG[k])
-
-		# 		del instance
-		# 		del mod
-		# 	except Exception as e:
-		# 		pass
-
-
-		# config.add_section("database")
-		# config.set("database", "host", "127.0.0.1")
-		# config.set("database", "user", "root")
-		# config.set("database", "password", "")
-		# config.set("database", "db", "atomshields")
-
-
-		# config.add_section("proxy")
-		# config.set("proxy", "enabled", False)
-		# config.set("proxy", "host", "127.0.0.1")
-		# config.set("proxy", "port", 8000)
-
-
-		# config.add_section("scm")
-
-		# config.add_section("scm/gerrit")
-		# config.set("scm/gerrit", "clone", "git clone ssh://[GERRIT_HOST]/<project> <destination>")
-		# config.set("scm/gerrit", "clone_last", "git clone -b <branch> --depth 1 ssh://[GERRIT_HOST]/<project> <destination>")
-		# config.set("scm/gerrit", "fetch", "git pull origin <ref>")
-
-
-		# config.add_section("scm/github")
-		# config.set("scm/github", "clone", "git clone git@github.com:[COMPANY]/<project> <destination>")
-		# config.set("scm/github", "fetch", "git checkout -b <branch> <commitId>")
-
 		with open(AtomShieldsScanner.CONFIG_PATH, 'wb') as configfile:
 			config.write(configfile)
 
@@ -395,8 +345,6 @@ class AtomShieldsScanner(object):
 		sys.path.append(path)
 		exclude = ["__init__.py", "base.py"]
 		for file in AtomShieldsScanner._getFiles(path, "*.py", exclude=exclude):
-			classname = AtomShieldsScanner._getClassName(file)
-			basename = os.path.basename(file).replace(".py", "")
 			try:
 				instance= AtomShieldsScanner._getClassInstance(path = file, args = classArgs)
 				if instance is not None:
@@ -525,7 +473,9 @@ class AtomShieldsScanner(object):
 		# Execute reports
 		self.executeReports()
 
+
 		# Print summary output.
+		print "Duration: {t}".format(t=duration)
 		self.showSummary()
 
 

@@ -42,8 +42,8 @@ class HttpReport(GenericReport):
 		options["data"] = {"issues": json.dumps(map(lambda x: x.__dict__(), self.issues))}
 
 		if 'get' == self.config['method'].lower():
-			r = requests.get(**options)
+			requests.get(**options)
 		else:
-			r = requests.post(**options)
+			requests.post(**options)
 
 

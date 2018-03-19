@@ -15,8 +15,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import os, shutil
-from setuptools import setup, find_packages
+import shutil
+# from setuptools import setup
+from setuptools import find_packages
 from distutils.core import setup
 
 def read_file(filename):
