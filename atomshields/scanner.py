@@ -7,7 +7,7 @@ import sys
 from datetime import datetime
 from ConfigParser import ConfigParser
 from termcolor import colored
-from helpers import Issue
+from models import Issue
 
 class AtomShieldsScanner(object):
 	"""
@@ -17,7 +17,7 @@ class AtomShieldsScanner(object):
 
 	# Static block.
 	# Check if paths are writable and change it else
-	
+
 	HOME = "/usr/local/share/atomshields"
 	HOME_2 = os.path.expanduser("~/.atomshields")
 
@@ -261,7 +261,7 @@ class AtomShieldsScanner(object):
 		only will returns the section config
 
 		Args:
-			section (str): (Optional) Section name. 
+			section (str): (Optional) Section name.
 
 		Returns:
 			dict: Representation of current config
