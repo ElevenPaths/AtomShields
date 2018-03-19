@@ -367,7 +367,6 @@ class AtomShieldsScanner(object):
 
 			except Exception as e:
 				AtomShieldsScanner._debug("[!] %s" % e)
-				pass
 		sys.path.remove(path)
 		return response
 
@@ -469,11 +468,11 @@ class AtomShieldsScanner(object):
 		duration = '{}'.format(end_ts - init_ts)
 
 		# Process and set issues
-		for k, v in issues.iteritems():
-			if type(v) is list:
-				map(self.saveIssue, v)
+		for issue in issues:
+			if isinstance(issue, list):
+				map(self.saveIssue, issue)
 			else:
-				self.saveIssue(v)
+				self.saveIssue(issue)
 
 
 		# Execute reports

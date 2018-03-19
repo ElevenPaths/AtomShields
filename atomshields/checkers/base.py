@@ -1,7 +1,5 @@
 # -*- coding:utf8 -*-
-
 import subprocess
-import json
 import ast
 
 class GenericChecker(object):
@@ -103,7 +101,7 @@ class GenericChecker(object):
 		"""
 		self._issues = value
 
-	@property 
+	@property
 	def config(self):
 		"""
 		Getter for 'config' property
@@ -147,10 +145,6 @@ class GenericChecker(object):
 		pass
 
 
-
-
-
-
 	def saveIssue(self, issue):
 		"""
 		Stores an issue in 'issues' property
@@ -159,10 +153,10 @@ class GenericChecker(object):
 			issue (atomshields.helpers.Issue): Issue instance
 		"""
 
-
 		self.issues.append(issue)
 
-	def parseConfig(self, value):
+	@classmethod
+	def parseConfig(cls, value):
 		"""
 		Parse the config values
 

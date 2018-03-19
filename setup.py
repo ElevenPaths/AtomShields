@@ -31,8 +31,7 @@ setup(
   install_requires=read_file('requirements.txt').splitlines(),
   packages = find_packages(),
   author = 'ElevenPaths',
-  description = """Framework de pruebas de seguridad en repositorios de código fuente. Dispone de un sistema 
-  flexible para la realización de pruebas de seguridad y comunicación de resultados.""",
+  description = "Framework de pruebas de seguridad en repositorios de código fuente. Dispone de un sistema flexible para la realización de pruebas de seguridad y comunicación de resultados.",
   long_description=open('README.rst').read(),
   author_email = 'diego.fernandez@11paths.com, david.amrani@11paths.com',
   url = 'https://github.com/ElevenPaths/AtomShields',
@@ -63,4 +62,3 @@ setup(
 from atomshields.scanner import AtomShieldsScanner
 
 AtomShieldsScanner.setup()
-
