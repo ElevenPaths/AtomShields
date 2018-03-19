@@ -1,7 +1,7 @@
 # -*- coding:utf8 -*-
-import subprocess
+
 from base import *
-from atomshields import Issue
+from atomshields import Issue, CommandHelper
 
 class DSStoreChecker(GenericChecker):
 
@@ -24,8 +24,9 @@ class DSStoreChecker(GenericChecker):
 		"""
 		filename = ".DS_Store"
 		command = "find {path} -type f -name \"{filename}\" ".format(path = self.path, filename = filename)
-		output = subprocess.check_output(command, shell = True)
-		files = output.split("\n")
+		cmd = CommandHelper(command)
+		cmd.execute()
+		files = cmd.output.split("\n")
 		for f in files:
 			if not f.endswith(filename):
 				continue

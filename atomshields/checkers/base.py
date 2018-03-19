@@ -53,7 +53,10 @@ class GenericChecker(object):
 			value (str): Absolute path to scan
 
 		"""
-		self._path = value
+		if not value.endswith('/'):
+			self._path = '{v}/'.format(v=value)
+		else:
+			self._path = value
 
 	@property
 	def project(self):

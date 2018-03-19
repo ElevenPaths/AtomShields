@@ -1,8 +1,7 @@
 # -*- coding:utf8 -*-
 import re
-import subprocess
 from base import *
-from atomshields import Issue
+from atomshields import Issue, CommandHelper
 
 class TargetBlankChecker(GenericChecker):
 
@@ -23,10 +22,10 @@ class TargetBlankChecker(GenericChecker):
 	def run(self):
 		regex = "target.*_blank"
 		command = """grep -rile "{regex}" "{path}" """.format(path=self.path, regex = regex)
-		p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-		output = p.communicate()[0]
+		cmd = CommandHelper(command)
+		cmd.execute()
 
-		lines = output.split("\n")
+		lines = cmd.output.split("\n")
 		for line in lines:
 			if not line.startswith(self.path):
 				continue
