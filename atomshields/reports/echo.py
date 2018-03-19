@@ -1,5 +1,5 @@
 # -*- coding:utf8 -*-
-from base import GenericReport
+from reports.base import GenericReport
 
 
 class EchoReport(GenericReport):
@@ -18,10 +18,10 @@ class EchoReport(GenericReport):
 		"enabled": True,
 	}
 
-	def __init__(self):
-		super(EchoReport, self).__init__()
+	def __init__(self, *args, **kwrds):
+		super(EchoReport, self).__init__(*args, **kwrds)
 
-	def run(self, issues):
+	def run(self):
 
 		format_str = '{:<40}  {:<20} {:<40}'
 
@@ -30,5 +30,5 @@ class EchoReport(GenericReport):
 		print format_str.format("Vulnerability", "Severity", "File affected")
 		print "-"*80
 
-		for issue in issues:
+		for issue in self.issues:
 			print format_str.format(issue.name, issue.severity.upper(), issue.file)

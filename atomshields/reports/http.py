@@ -1,5 +1,5 @@
 # -*- coding:utf8 -*-
-from base import GenericReport
+from reports.base import GenericReport
 
 
 class HttpReport(GenericReport):
@@ -19,8 +19,8 @@ class HttpReport(GenericReport):
 		"url": "<your_endpoint>",
 		"method": "post"
 	}
-	def __init__(self):
-		pass
+	def __init__(self, *args, **kwrds):
+		super(HttpReport, self).__init__(*args, **kwrds)
 
-	def run(self, issues):
+	def run(self):
 		print "Enviando por http"

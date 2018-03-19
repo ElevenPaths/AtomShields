@@ -370,7 +370,7 @@ class AtomShieldsScanner(object):
 		return instance
 
 	@staticmethod
-	def _executeMassiveMethod(path, method, args={}):
+	def _executeMassiveMethod(path, method, args={}, classArgs = {}):
 		"""
 		Execute an specific method for each class instance located in path
 
@@ -389,7 +389,7 @@ class AtomShieldsScanner(object):
 			classname = AtomShieldsScanner._getClassName(file)
 			basename = os.path.basename(file).replace(".py", "")
 			try:
-				instance= AtomShieldsScanner._getClassInstance(path = file, args = {})
+				instance= AtomShieldsScanner._getClassInstance(path = file, args = classArgs)
 				if instance is not None:
 					if callable(method):
 						args["instance"] = instance
@@ -420,7 +420,7 @@ class AtomShieldsScanner(object):
 		return AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.CHECKERS_DIR, method=__run, args={})
 
 	def executeReports(self):
-		return AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.REPORTS_DIR, method="run", args={"issues": self.issues})
+		return AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.REPORTS_DIR, method="run", args={}, classArgs={"issues": self.issues})
 
 
 	def saveIssue(self, issue):
