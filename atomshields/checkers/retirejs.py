@@ -1,5 +1,5 @@
 # -*- coding:utf8 -*-
-from base import GenericChecker, checker
+from base import GenericChecker
 
 
 class RetireJSChecker(GenericChecker):
