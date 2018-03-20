@@ -2,6 +2,8 @@
 import subprocess
 import ast
 
+from atomshields import CommandHelper
+
 class GenericChecker(object):
 
 	def __init__(self):
@@ -177,7 +179,15 @@ class GenericChecker(object):
 	@staticmethod
 	def isInstalled(value):
 		"""
+		Check if a software is installed into machine.
+
+		Args:
+			value (str): Software's name
+
+		Returns:
+			bool: True if the software is installed. False else
 		"""
+
 		function = """
 		function is_installed {
 		  # set to 1 initially
@@ -187,9 +197,13 @@ class GenericChecker(object):
 		  # return value
 		  echo "$return_"
 		}"""
-		command = "/bin/bash -c '{f}; echo $(is_installed \"{arg}\")'".format(f=function, arg=value)
-		output = subprocess.check_output(command, shell = True)
-		return "1" in output
+		cmd = CommandHelper(function)
+		cmd.execute()
+
+		cmd.command = 'echo $(is_installed \"{arg}\")'.format(arg=value)
+		cmd.execute()
+		
+		return "1" in cmd.output
 
 
 def checker(func):
