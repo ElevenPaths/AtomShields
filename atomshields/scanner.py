@@ -300,8 +300,8 @@ class AtomShieldsScanner(object):
 		if not path.endswith(".py"):
 			return False
 
-		with open(path) as file:
-			node = ast.parse(file.read())
+		with open(path) as f:
+			node = ast.parse(f.read())
 		return [n for n in node.body if isinstance(n, ast.ClassDef)][0].name
 
 	@staticmethod
@@ -312,7 +312,7 @@ class AtomShieldsScanner(object):
 		return [fn for fn in glob.glob(_p) if not os.path.basename(fn) in exclude]
 
 	@staticmethod
-	def _getClassInstance(path, args={}):
+	def _getClassInstance(path, args=None):
 		"""
 		Returns a class instance from a .py file.
 
@@ -325,6 +325,10 @@ class AtomShieldsScanner(object):
 		"""
 		if not path.endswith(".py"):
 			return None
+
+		if args is None:
+			args = {}
+
 		classname = AtomShieldsScanner._getClassName(path)
 		basename = os.path.basename(path).replace(".py", "")
 		sys.path.append(os.path.dirname(path))
@@ -340,7 +344,7 @@ class AtomShieldsScanner(object):
 		return instance
 
 	@staticmethod
-	def _executeMassiveMethod(path, method, args={}, classArgs = {}):
+	def _executeMassiveMethod(path, method, args=None, classArgs = None):
 		"""
 		Execute an specific method for each class instance located in path
 
@@ -353,11 +357,18 @@ class AtomShieldsScanner(object):
 				  The dictionary keys are the value of 'NAME' class variable.
 		"""
 		response = {}
+
+		if args is None:
+			args = {}
+
+		if classArgs is None:
+			classArgs = {}
+
 		sys.path.append(path)
 		exclude = ["__init__.py", "base.py"]
-		for ffile in AtomShieldsScanner._getFiles(path, "*.py", exclude=exclude):
+		for f in AtomShieldsScanner._getFiles(path, "*.py", exclude=exclude):
 			try:
-				instance = AtomShieldsScanner._getClassInstance(path = ffile, args = classArgs)
+				instance = AtomShieldsScanner._getClassInstance(path = f, args = classArgs)
 				if instance is not None:
 					if callable(method):
 						args["instance"] = instance

@@ -1,5 +1,5 @@
 # -*- coding:utf8 -*-
-import subprocess
+
 import ast
 
 from atomshields import CommandHelper
@@ -202,7 +202,6 @@ class GenericChecker(object):
 
 		cmd.command = 'echo $(is_installed \"{arg}\")'.format(arg=value)
 		cmd.execute()
-		
 		return "1" in cmd.output
 
 
