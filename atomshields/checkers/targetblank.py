@@ -33,7 +33,7 @@ class TargetBlankChecker(GenericChecker):
 			#line is the file which contains "target.*_blank"
 
 			# Ignore paths excluded
-			rel_path = f.replace(self.path, "")
+			rel_path = line.replace(self.path, "")
 			if rel_path.startswith(tuple(self.CONFIG['exclude_paths'])):
 				continue
 
