@@ -239,7 +239,12 @@ class AtomShieldsScanner(object):
 			config.write(configfile)
 
 		if show:
-			os.system("cat {file}".format(file=AtomShieldsScanner.CONFIG_PATH))
+			f = open(AtomShieldsScanner.CONFIG_PATH, 'r')
+			content = f.read()
+			f.close()
+			print content
+
+		return config
 
 
 	def showScanProperties(self):
