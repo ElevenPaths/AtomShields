@@ -9,7 +9,7 @@ class TargetBlankChecker(GenericChecker):
 	DESCRIPTION = """Detecta vulnerabilidades 'Target Blank' en ficheros HTML"""
 	CONFIG = {
 		"enabled": True,
-		"exclude_paths": ["test/", "docs/"]
+		"exclude_paths": ["/test/", "/docs/"]
 	}
 
 	REGEX = ur"(<a (?=.*href=(['\"])(https?:)?\/\/.*?\2)(?!.*rel=(['\"])(.*\bnoopener\b.*\bnoreferrer\b.*|.*\bnoreferrer\b.*\bnoopener\b.*)\4)[^>]*target=(['\"]?)_blank\6[^>]*)(>)([^<]*)(<\/a>)?"
@@ -31,6 +31,11 @@ class TargetBlankChecker(GenericChecker):
 				continue
 
 			#line is the file which contains "target.*_blank"
+
+			# Ignore paths excluded
+			rel_path = f.replace(self.path, "")
+			if rel_path.startswith(tuple(self.CONFIG['exclude_paths'])):
+				continue
 
 			# get content
 			f = open(line, 'r')
