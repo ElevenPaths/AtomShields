@@ -255,11 +255,8 @@ class AtomShieldsScanner(object):
 		print ""
 
 	def checkProperties(self):
-		if self.path is None:
-			raise Exception("Path is required")
-
-		if self.project is None:
-			raise Exception("Path is required")
+		assert self.path != None, "Path is required"
+		assert self.project != None, "Project is required"
 
 	def getConfig(self, section = None):
 		"""

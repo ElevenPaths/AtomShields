@@ -1,0 +1,7 @@
+[Checker1]
+Enabled: True
+
+
+[Checker2]
+Enabled: True
+Name: Checker Two
