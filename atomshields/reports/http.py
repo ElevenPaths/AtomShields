@@ -1,5 +1,5 @@
 # -*- coding:utf8 -*-
-from base import GenericReport
+from atomshields.reports.base import GenericReport
 import requests, json
 
 

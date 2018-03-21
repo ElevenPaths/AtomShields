@@ -15,9 +15,8 @@ class MetashieldChecker(GenericChecker):
 		"secret": "<your_metashield_secret_key>"
 	}
 
-	def __init__(self, foo=2):
+	def __init__(self):
 		super(MetashieldChecker, self).__init__()
-		self.foo = foo
 
 	@staticmethod
 	def install():

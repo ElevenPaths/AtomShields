@@ -475,7 +475,11 @@ class AtomShieldsScanner(object):
 		init_ts = datetime.now()
 
 		# Execute plugins
+		cwd = os.getcwd()
+		os.chdir(self.path)
 		issues = self.executeCheckers()
+		os.chdir(cwd)
+
 
 
 
@@ -484,11 +488,13 @@ class AtomShieldsScanner(object):
 		duration = '{}'.format(end_ts - init_ts)
 
 		# Process and set issues
-		for issue in issues:
-			if isinstance(issue, list):
-				map(self.saveIssue, issue)
+		for plugin in issues.keys():
+			value = issues[plugin]
+			if isinstance(value, list):
+				map(self.saveIssue, value)
 			else:
-				self.saveIssue(issue)
+				self.saveIssue(value)
+
 
 
 		# Execute reports

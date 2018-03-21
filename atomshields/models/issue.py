@@ -31,12 +31,12 @@ class Issue(object):
 	SEVERITY_CRITICAL = "Critical"
 
 	def __init__(self, name=None, file=None, details=None, severity=None, potential=None, checker_name=None):
-		self.name = name
-		self.file = file
-		self.details = details
-		self.severity = severity
-		self.potential = potential
-		self.checker_name = checker_name
+		self._name = name
+		self._file = file
+		self._details = details
+		self._severity = severity
+		self._potential = potential
+		self._checker_name = checker_name
 
 
 	@property

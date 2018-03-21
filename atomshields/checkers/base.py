@@ -1,7 +1,7 @@
 # -*- coding:utf8 -*-
 
 import ast
-
+from termcolor import colored
 from atomshields import CommandHelper
 
 class GenericChecker(object):
@@ -190,18 +190,14 @@ class GenericChecker(object):
 
 		function = """
 		function is_installed {
-		  # set to 1 initially
-		  local return_=1
-		  # set to 0 if not found
-		  type $1 >/dev/null 2>&1 || { local return_=0; }
-		  # return value
-		  echo "$return_"
+		  local return_=1;
+		  type $1 >/dev/null 2>&1 || { local return_=0; };
+		  echo "$return_";
 		}"""
-		cmd = CommandHelper(function)
+		command = """bash -c '{f}; echo $(is_installed \"{arg}\")'""".format(f = function, arg=value)
+		cmd = CommandHelper(command)
 		cmd.execute()
 
-		cmd.command = 'echo $(is_installed \"{arg}\")'.format(arg=value)
-		cmd.execute()
 		return "1" in cmd.output
 
 
@@ -224,7 +220,7 @@ def checker(func):
 				return self.issues
 
 		except Exception as e:
-			desc = "Error en la ejecución del checker: %s" % e
+			desc = "Error en la ejecución del checker {n}: {e}".format(n=self.__class__.NAME, e = e)
 			print desc
 
 	return execute
