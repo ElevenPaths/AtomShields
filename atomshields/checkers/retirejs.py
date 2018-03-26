@@ -2,8 +2,11 @@
 from base import GenericChecker, checker
 from atomshields import CommandHelper, Issue
 
-import json, re
+import json, re, os
 import requests
+import tempfile
+import shutil
+from requests.exceptions import ConnectionError
 from packaging import version
 
 class RetireJSChecker(GenericChecker):
@@ -15,8 +18,10 @@ class RetireJSChecker(GenericChecker):
 		"exclude_paths": ["test/"]
 	}
 
+
 	def __init__(self):
 		super(RetireJSChecker, self).__init__()
+		self.cache = {}
 
 	@checker
 	def run(self):
@@ -27,6 +32,47 @@ class RetireJSChecker(GenericChecker):
 		else:
 			options = ""
 
+
+		self.scan(path = self.path, options = options, tempfile = False)
+
+		# Find JS in cloud
+		regex = "script.*src.*http"
+		command = """grep -rile "{regex}" "{path}" """.format(path = self.path, regex = regex)
+		cmd = CommandHelper(command)
+		cmd.execute()
+
+
+		jslinks = {}
+		lines = cmd.output.split("\n")
+		for line in lines:
+
+			if not line.startswith(self.path):
+				continue
+
+			_links = self.getJSLinks(line)
+			if _links is not None and len(_links) > 0:
+				jslinks[line] = _links
+
+		old_path = os.getcwd()
+		# Create tempdir and download JS
+		for f in jslinks.keys():
+			tmp_path = tempfile.mkdtemp(prefix="as_")
+			for js in jslinks[f]:
+
+				tmp_file = tempfile.mkstemp(dir=tmp_path, suffix=".js")[1]
+				name = os.path.basename(tmp_file)
+				self.download(js, tmp_file)
+				self.cache[name] = js
+
+			self.scan(path = tmp_path, options="", tempfile = True)
+
+
+
+
+
+	def scan(self, path, options = "", tempfile = False):
+		old_path = os.getcwd()
+		os.chdir(path)
 		command = "retire --outputformat json --nocache {option} 2>&1".format(option=options)
 		cmd = CommandHelper(command)
 		cmd.execute()
@@ -40,10 +86,19 @@ class RetireJSChecker(GenericChecker):
 
 				vulnerabilities = item['results'][0]['vulnerabilities']
 				issue = Issue(name = "Vulnerability in {c} v{v}".format(c=component, v=version))
-				issue.file = item["file"].replace(self.path, "")
+
+				# Check if is a tempfile and path should be replaced by URL
+				if tempfile:
+					issue.file = self.cache[os.path.basename(item["file"])]
+				else:
+					issue.file = item["file"].replace(self.path, "")
 				issue.details = "{n} vulnerabilities found:\n".format(n=len(vulnerabilities))
 				for v in vulnerabilities:
-					issue.details += "- {name}\n".format(name=v['identifiers']['summary'])
+					if 'summary' in v['identifiers']:
+						name = v['identifiers']['summary']
+					elif 'CVE' in v['identifiers']:
+						name = ','.join(v['identifiers']['CVE'])
+					issue.details += "- {name}\n".format(name=name)
 
 				updateTo = self.getLastVersion(component)
 				if updateTo is not None:
@@ -51,31 +106,23 @@ class RetireJSChecker(GenericChecker):
 				issue.severity = Issue.SEVERITY_MEDIUM
 				issue.potential = False
 
-				#@TODO: Extraer la info de los JS enlazados directamente en tags script
-
 				self.saveIssue(issue)
-
-
-			# Find JS in cloud
-			regex = "script.*src.*http"
-			command = """grep -rile "{regex}" "{path}" """.format(path = self.path, regex = regex)
-			cmd = CommandHelper(command)
-			cmd.execute()
-
-			jslinks = {}
-			lines = cmd.output.split("\n")
-			for line in lines:
-				if not line.startswith(self.path):
-					continue
-
-				_links = self.getJSLinks(line)
-				if jslinks is not None and len(jslinks) > 0:
-					jslinks[line] = _links
-
-
-
 		except Exception as e:
-			print e
+			print "[!] Error: {e}".format(e=e)
+		finally:
+			os.chdir(old_path)
+			if tempfile:
+				shutil.rmtree(path)
+
+
+
+	def download(self, url, path):
+		try:
+			r = requests.get(url, stream=True)
+			with open(path, 'wb') as f:
+				f.write(r.content)
+		except ConnectionError:
+			pass
 
 
 
