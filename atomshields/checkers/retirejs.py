@@ -2,7 +2,9 @@
 from base import GenericChecker, checker
 from atomshields import CommandHelper, Issue
 
-import json
+import json, re
+import requests
+from packaging import version
 
 class RetireJSChecker(GenericChecker):
 
@@ -37,21 +39,84 @@ class RetireJSChecker(GenericChecker):
 				version = item['results'][0]['version'] 
 
 				vulnerabilities = item['results'][0]['vulnerabilities']
-
 				issue = Issue(name = "Vulnerability in {c} v{v}".format(c=component, v=version))
 				issue.file = item["file"].replace(self.path, "")
 				issue.details = "{n} vulnerabilities found:\n".format(n=len(vulnerabilities))
 				for v in vulnerabilities:
 					issue.details += "- {name}\n".format(name=v['identifiers']['summary'])
+
+				updateTo = self.getLastVersion(component)
+				if updateTo is not None:
+					issue.details += "\nPlease, update to version {v}".format(v=updateTo)
 				issue.severity = Issue.SEVERITY_MEDIUM
 				issue.potential = False
 
+				#@TODO: Extraer la info de los JS enlazados directamente en tags script
+
 				self.saveIssue(issue)
+
+
+			# Find JS in cloud
+			regex = "script.*src.*http"
+			command = """grep -rile "{regex}" "{path}" """.format(path = self.path, regex = regex)
+			cmd = CommandHelper(command)
+			cmd.execute()
+
+			jslinks = {}
+			lines = cmd.output.split("\n")
+			for line in lines:
+				if not line.startswith(self.path):
+					continue
+
+				_links = self.getJSLinks(line)
+				if jslinks is not None and len(jslinks) > 0:
+					jslinks[line] = _links
 
 
 
 		except Exception as e:
 			print e
+
+
+
+	def getLastVersion(self, component):
+		url1 = "https://rawgit.com/RetireJS/retire.js/master/repository/jsrepository.json"
+		url2 = "https://rawgit.com/RetireJS/retire.js/master/repository/npmrepository.json"
+
+		obj1 = {}
+		obj2 = {}
+		r = requests.get(url1)
+		if r.status_code == 200:
+			obj1 = r.json()
+
+		r = requests.get(url2)
+		if r.status_code == 200:
+			obj2 = r.json()
+
+		data = obj1.copy()
+		data.update(obj2)
+
+
+		versions = map(lambda x : x['below'], data[component]['vulnerabilities'])
+		return max(versions)
+
+
+	def getJSLinks(self, filepath):
+		regex = r"<script\ *([^>]*)(src\ *=\ *('|\")(https?://.*)('|\"))"
+		f = open(filepath, 'r')
+		content = f.read()
+		f.close()
+
+		prog = re.compile(regex, flags = re.MULTILINE | re.IGNORECASE)
+		matches = prog.finditer(content)
+		matches_data = []
+		matchNum = 0
+		for _matchNum, match in enumerate(matches):
+			matchNum += 1
+			matches_data.append(match.group(4))
+
+		return matches_data
+
 
 
 	@staticmethod
