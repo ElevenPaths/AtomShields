@@ -57,3 +57,20 @@ class TestCheckers():
         checker._path = os.path.join(os.path.dirname(__file__), 'dataset', 'notvulnerable')
         issues = checker.run()
         assert len(issues) == 0
+
+    #################################
+    ###          RetireJs         ###
+    #################################
+
+    # def test_RetireJS_positive(self):
+    #     checker = RetireJSChecker()
+    #     checker._path = os.path.join(os.path.dirname(__file__), 'dataset', 'vulnerable')
+    #     issues = checker.run()
+    #     assert len(issues) == 1
+    #     assert issues[0]._file == '/vulnerable_angular.js'
+
+    # def test_RetireJS_negative(self):
+    #     checker = RetireJSChecker()
+    #     checker._path = os.path.join(os.path.dirname(__file__), 'dataset', 'notvulnerable')
+    #     issues = checker.run()
+    #     assert len(issues) == 0
