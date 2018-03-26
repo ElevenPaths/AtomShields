@@ -213,11 +213,11 @@ class AtomShieldsScanner(object):
 
 	@staticmethod
 	def installChecker(path):
-		self.installPlugin(path, AtomShieldsScanner.CHECKERS_DIR)
+		AtomShieldsScanner.installPlugin(path, AtomShieldsScanner.CHECKERS_DIR)
 
 	@staticmethod
 	def installReport(path):
-		self.installPlugin(path, AtomShieldsScanner.REPORTS_DIR)
+		AtomShieldsScanner.installPlugin(path, AtomShieldsScanner.REPORTS_DIR)
 
 
 	@staticmethod
@@ -239,11 +239,11 @@ class AtomShieldsScanner(object):
 
 	@staticmethod
 	def uninstallChecker(name):
-		AtomShieldsScanner.uninstallPlugin(path = AtomShieldsScanner.CHECKERS_DIR, name)
+		AtomShieldsScanner.uninstallPlugin(path = AtomShieldsScanner.CHECKERS_DIR, name = name)
 
 	@staticmethod
 	def uninstallReport(path):
-		AtomShieldsScanner.uninstallPlugin(path = AtomShieldsScanner.REPORTS_DIR, name)
+		AtomShieldsScanner.uninstallPlugin(path = AtomShieldsScanner.REPORTS_DIR, name = name)
 
 	@staticmethod
 	def generateConfig(show = False):
