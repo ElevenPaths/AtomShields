@@ -213,13 +213,37 @@ class AtomShieldsScanner(object):
 
 	@staticmethod
 	def installChecker(path):
-		if os.path.isfile(path) and os.path.isdir(AtomShieldsScanner.CHECKERS_DIR):
-			shutil.copy(path, AtomShieldsScanner.CHECKERS_DIR)
+		self.installPlugin(path, AtomShieldsScanner.CHECKERS_DIR)
 
 	@staticmethod
 	def installReport(path):
-		if os.path.isfile(path) and os.path.isdir(AtomShieldsScanner.REPORTS_DIR):
-			shutil.copy(path, AtomShieldsScanner.REPORTS_DIR)
+		self.installPlugin(path, AtomShieldsScanner.REPORTS_DIR)
+
+
+	@staticmethod
+	def uninstallPlugin(path, name = None):
+		if os.path.isfile(path) and path.endswith(".py"):
+			os.remove(path)
+		else:
+			if os.path.isdir(path) and name is not None:
+				exclude = ["__init__.py", "base.py"]
+				for f in AtomShieldsScanner._getFiles(path, "*.py", exclude=exclude):
+					try:
+						instance = AtomShieldsScanner._getClassInstance(path = f, args = classArgs)
+						if instance.__class__.NAME.lower() == name.lower():
+							# This plugin
+							os.remove(f)
+					except:
+						continue
+
+
+	@staticmethod
+	def uninstallChecker(name):
+		AtomShieldsScanner.uninstallPlugin(path = AtomShieldsScanner.CHECKERS_DIR, name)
+
+	@staticmethod
+	def uninstallReport(path):
+		AtomShieldsScanner.uninstallPlugin(path = AtomShieldsScanner.REPORTS_DIR, name)
 
 	@staticmethod
 	def generateConfig(show = False):
