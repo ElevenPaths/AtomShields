@@ -192,10 +192,10 @@ class AtomShieldsScanner(object):
 
 		# Copy all checkers
 		for f in AtomShieldsScanner._getFiles(os.path.join(os.path.dirname(os.path.realpath(__file__)), "checkers"), "*.py"):
-			shutil.copy(f, AtomShieldsScanner.CHECKERS_DIR)
+			AtomShieldsScanner.installChecker(f)
 		# Copy all reports
 		for f in AtomShieldsScanner._getFiles(os.path.join(os.path.dirname(os.path.realpath(__file__)), "reports"), "*.py"):
-			shutil.copy(f, AtomShieldsScanner.REPORTS_DIR)
+			AtomShieldsScanner.installReport(f)
 
 		AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.CHECKERS_DIR, method="install", args={})
 
@@ -205,6 +205,21 @@ class AtomShieldsScanner(object):
 			os.makedirs(config_dir)
 
 
+
+	@staticmethod
+	def installPlugin(origin, destination):
+		if os.path.isfile(origin) and os.path.isdir(destination):
+			shutil.copy(origin, destination)
+
+	@staticmethod
+	def installChecker(path):
+		if os.path.isfile(path) and os.path.isdir(AtomShieldsScanner.CHECKERS_DIR):
+			shutil.copy(path, AtomShieldsScanner.CHECKERS_DIR)
+
+	@staticmethod
+	def installReport(path):
+		if os.path.isfile(path) and os.path.isdir(AtomShieldsScanner.REPORTS_DIR):
+			shutil.copy(path, AtomShieldsScanner.REPORTS_DIR)
 
 	@staticmethod
 	def generateConfig(show = False):
