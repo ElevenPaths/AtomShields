@@ -221,7 +221,10 @@ class AtomShieldsScanner(object):
 
 
 	@staticmethod
-	def uninstallPlugin(path, name = None):
+	def uninstallPlugin(path, name = None, classArgs = None):
+		if classArgs is None:
+			classArgs = {}
+
 		if os.path.isfile(path) and path.endswith(".py"):
 			os.remove(path)
 		else:
@@ -233,17 +236,18 @@ class AtomShieldsScanner(object):
 						if instance.__class__.NAME.lower() == name.lower():
 							# This plugin
 							os.remove(f)
-					except:
+					except Exception as e:
+						print "[!] {e}".format(e=e)
 						continue
 
 
 	@staticmethod
 	def uninstallChecker(name):
-		AtomShieldsScanner.uninstallPlugin(path = AtomShieldsScanner.CHECKERS_DIR, name = name)
+		AtomShieldsScanner.uninstallPlugin(path = AtomShieldsScanner.CHECKERS_DIR, name = name, classArgs = {})
 
 	@staticmethod
-	def uninstallReport(path):
-		AtomShieldsScanner.uninstallPlugin(path = AtomShieldsScanner.REPORTS_DIR, name = name)
+	def uninstallReport(name):
+		AtomShieldsScanner.uninstallPlugin(path = AtomShieldsScanner.REPORTS_DIR, name = name,  classArgs = {})
 
 	@staticmethod
 	def generateConfig(show = False):
