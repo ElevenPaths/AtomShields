@@ -3,7 +3,8 @@ import pytest
 import os
 import sys
 from cStringIO import StringIO
-from atomshields.reports import *
+from atomshields.reports.echo import *
+from atomshields.reports.http import *
 from atomshields import Issue
 
 

@@ -3,7 +3,7 @@ AtomShields
 ===============
 
 
-|Build| |Codacy| |Coverage|
+|Build| |Codacy| |Docs| |Version|
 
 .. |Docs| image:: https://readthedocs.org/projects/atomshields/badge/?version=latest
    :target: http://atomshields.readthedocs.io/en/latest/?badge=latest
