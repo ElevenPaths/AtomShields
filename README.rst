@@ -57,7 +57,7 @@ Basic usage
   atoms = atomshields.AtomShieldsScanner('./MyRepo/')
   atoms.project = "MyRepoName"
 
-  issues = atoms.executeCheckers()
+  issues = atoms.run() # Executes all checkers and all reports
 
 ------------------------------------------------------------------------------------------
 
