@@ -1,4 +1,2 @@
-from echo import EchoReport
-from http import HttpReport
+from base import GenericReport
 
-__all__ = ['EchoReport', 'HttpReport']
