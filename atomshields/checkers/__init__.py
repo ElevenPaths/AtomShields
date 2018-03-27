@@ -6,4 +6,4 @@ from passwords import PasswordsCheckers
 from retirejs import RetireJSChecker
 from targetblank import TargetBlankChecker
 
-__all__ = ['DSStoreChecker', 'MetashieldChecker', 'PasswordsCheckers', 'RetireJSChecker', 'TargetBlankChecker']
+__all__ = ['DSStoreChecker', 'PasswordsCheckers', 'RetireJSChecker', 'TargetBlankChecker']
