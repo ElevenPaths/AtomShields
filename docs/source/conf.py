@@ -15,6 +15,8 @@
 #
 import os
 import sys
+import subprocess
+
 sys.path.insert(0, os.path.abspath('../'))
 
 def read_file(filename):
@@ -29,7 +31,7 @@ copyright = u'2018, ElevenPaths'
 author = u'ElevenPaths - Telefonica Digital España'
 
 # The short X.Y version
-version = u'0.1'
+version = read_file('../../VERSION')
 # The full version, including alpha/beta/rc tags
 release = read_file('../../VERSION')
 
@@ -170,6 +172,22 @@ texinfo_documents = [
 
 
 # -- Extension configuration -------------------------------------------------
-
 autosummary_generate = True
 autodoc_member_order = 'bysource'
+
+
+# -- Running sphinx-apidoc ---------------------------------------------------
+# Automate building apidoc when building with readthedocs
+# https://github.com/rtfd/readthedocs.org/issues/1139
+def run_apidoc(_):
+    module = '../atomshields/'
+    cur_dir = os.path.abspath(os.path.dirname(__file__))
+    output_path = os.path.join(cur_dir)
+    cmd_path = 'sphinx-apidoc'
+    if hasattr(sys, 'real_prefix'):  # Check to see if we are in a virtualenv
+        # If we are, assemble the path manually
+        cmd_path = os.path.abspath(os.path.join(sys.prefix, 'bin', 'sphinx-apidoc'))
+    subprocess.check_call([cmd_path, '-e', '-o', output_path, module, '--force'])
+
+def setup(app):
+    app.connect('builder-inited', run_apidoc)
