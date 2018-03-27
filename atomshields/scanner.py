@@ -206,6 +206,7 @@ class AtomShieldsScanner(object):
 
 
 
+
 	@staticmethod
 	def installPlugin(origin, destination):
 		if os.path.isfile(origin) and os.path.isdir(destination):

@@ -18,9 +18,19 @@ limitations under the License.
 from setuptools import find_packages
 from distutils.core import setup
 
+from distutils.core import setup
+from distutils.command.install import install as _install
+
+
 def read_file(filename):
     with open(filename) as f:
         return f.read()
+
+# (╯ರ ~ ರ）╯︵ ┻━┻
+# For compatibility: Install dependencies directly via pip
+import pip
+pip.main(["install"] + read_file('requirements.txt').splitlines())
+
 
 package_name = 'atomshields'
 
@@ -56,8 +66,9 @@ setup(
 )
 
 
-# Setup files
 
+# Setup AtomShields
 from atomshields.scanner import AtomShieldsScanner
-
 AtomShieldsScanner.setup()
+
+
