@@ -12,8 +12,8 @@ Getting started
 .. |Version| image:: http://img.shields.io/pypi/v/atomshields.svg?style=flat
    :target: https://pypi.python.org/pypi/atomshields/
    :alt: Version
-.. |Build| image:: https://travis-ci.com/ElevenPaths/AtomShields.svg?token=gsrNB2DciSs6qu19pJHD&branch=master
-   :target: https://travis-ci.com/ElevenPaths/AtomShields
+.. |Build| image:: https://travis-ci.org/ElevenPaths/AtomShields.svg?token=gsrNB2DciSs6qu19pJHD&branch=master
+   :target: https://travis-ci.org/ElevenPaths/AtomShields
    :alt: Build
 .. |Codacy| image:: https://api.codacy.com/project/badge/Grade/46c76e50709e4079828d5fecafa60473
    :target: https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ElevenPaths/AtomShields&amp;utm_campaign=Badge_Grade
