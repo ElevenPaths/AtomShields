@@ -1,7 +1,9 @@
 # -*- coding:utf8 -*-
 import pytest
 import os
-from atomshields.checkers import *
+from atomshields.checkers.dsstore import DSStoreChecker
+from atomshields.checkers.retirejs import RetireJSChecker
+from atomshields.checkers.targetblank import TargetBlankChecker
 
 class TestCheckers():
 
