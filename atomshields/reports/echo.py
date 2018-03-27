@@ -1,5 +1,5 @@
 # -*- coding:utf8 -*-
-from atomshields.reports.base import GenericReport
+from atomshields.reports.base import *
 
 
 class EchoReport(GenericReport):
@@ -21,6 +21,7 @@ class EchoReport(GenericReport):
 	def __init__(self, *args, **kwargs):
 		super(EchoReport, self).__init__(*args, **kwargs)
 
+	@report
 	def run(self):
 
 		format_str = '{:<40}  {:<20} {:<40}'

@@ -220,7 +220,6 @@ def checker(func):
 				return self.issues
 
 		except Exception as e:
-			desc = "Error en la ejecución del checker {n}: {e}".format(n=self.__class__.NAME, e = e)
-			print desc
+			print colored("Error en la ejecución del checker {n}: {e}".format(n=self.__class__.NAME, e = e), "red")
 
 	return execute

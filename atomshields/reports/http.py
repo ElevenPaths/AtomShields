@@ -1,5 +1,5 @@
 # -*- coding:utf8 -*-
-from atomshields.reports.base import GenericReport
+from atomshields.reports.base import *
 import requests, json
 
 
@@ -29,6 +29,7 @@ class HttpReport(GenericReport):
 		"""
 		super(HttpReport, self).__init__(*args, **kwargs)
 
+	@report
 	def run(self):
 		"""
 		Method executed dynamically by framework. This method will do a http request to

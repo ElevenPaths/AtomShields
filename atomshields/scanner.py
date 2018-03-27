@@ -292,10 +292,10 @@ class AtomShieldsScanner(object):
 
 
 	def showScanProperties(self):
-		print ""
-		print '{:<20}  {:<60}'.format("Path: ", self.path)
-		print '{:<20}  {:<60}'.format("Project: ", self.project)
-		print ""
+		self.debug("")
+		self.debug('{:<20}  {:<60}'.format("Path: ", self.path))
+		self.debug('{:<20}  {:<60}'.format("Project: ", self.project))
+		self.debug("")
 
 	def checkProperties(self):
 		if not self.path:
@@ -541,12 +541,16 @@ class AtomShieldsScanner(object):
 
 
 		# Execute reports
+		print ""
 		self.executeReports()
 
 
 		# Print summary output.
-		print "Duration: {t}".format(t=duration)
+		self.debug("")
+		self.debug("Duration: {t}".format(t=duration))
 		self.showSummary()
+
+		return self.issues
 
 
 
@@ -560,7 +564,7 @@ if __name__ == "__main__":
 		path = "/tmp"
 
 
-	instance = AtomShieldsScanner(path, verbose=True)
+	instance = AtomShieldsScanner(path, verbose=False)
 
 	instance.project = "Defcon-Doctor"
 
