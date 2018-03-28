@@ -171,10 +171,9 @@ class RetireJSChecker(GenericChecker):
 		"""
 		Install all the dependences
 		"""
-		print "Install method: RetireJS"
 		cmd = CommandHelper()
-		cmd.install("npm")
-		cmd.install("retire")
+		print cmd.install("npm")
+		print cmd.install("retire")
 
 
 
