@@ -70,5 +70,6 @@ setup(
 # Setup AtomShields
 from atomshields.scanner import AtomShieldsScanner
 AtomShieldsScanner.setup()
+AtomShieldsScanner.generateConfig(show = False)
 
 
