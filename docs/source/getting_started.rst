@@ -12,7 +12,7 @@ Getting started
 .. |Version| image:: http://img.shields.io/pypi/v/atomshields.svg?style=flat
    :target: https://pypi.python.org/pypi/atomshields/
    :alt: Version
-.. |Build| image:: https://travis-ci.org/ElevenPaths/AtomShields.svg?token=gsrNB2DciSs6qu19pJHD&branch=master
+.. |Build| .. image:: https://travis-ci.org/ElevenPaths/AtomShields.svg?branch=master
    :target: https://travis-ci.org/ElevenPaths/AtomShields
    :alt: Build
 .. |Codacy| image:: https://api.codacy.com/project/badge/Grade/46c76e50709e4079828d5fecafa60473
