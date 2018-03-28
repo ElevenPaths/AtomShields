@@ -71,9 +71,6 @@ setup(
 # Setup AtomShields
 from atomshields.scanner import AtomShieldsScanner
 AtomShieldsScanner.setup()
-<<<<<<< HEAD
 AtomShieldsScanner.generateConfig(show = False)
 
 
-=======
->>>>>>> ccc8614f93e9164f5c419ec1461dd665d71356de
