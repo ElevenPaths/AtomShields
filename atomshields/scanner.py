@@ -264,7 +264,6 @@ class AtomShieldsScanner(object):
 		def __addConfig(instance, config, parent_section):
 			try:
 				section_name = "{p}/{n}".format(p = parent_section, n=instance.NAME)
-				print section_name
 				config.add_section(section_name)
 				for k in instance.CONFIG.keys():
 					config.set(section_name, k, instance.CONFIG[k])
