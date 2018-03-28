@@ -15,7 +15,9 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../'))
+import subprocess
+
+sys.path.insert(0, os.path.abspath('../../'))
 
 def read_file(filename):
     with open(filename) as f:
@@ -29,7 +31,7 @@ copyright = u'2018, ElevenPaths'
 author = u'ElevenPaths - Telefonica Digital España'
 
 # The short X.Y version
-version = u'0.1'
+version = read_file('../../VERSION')
 # The full version, including alpha/beta/rc tags
 release = read_file('../../VERSION')
 
@@ -170,6 +172,5 @@ texinfo_documents = [
 
 
 # -- Extension configuration -------------------------------------------------
-
 autosummary_generate = True
 autodoc_member_order = 'bysource'

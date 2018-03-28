@@ -7,11 +7,19 @@ Subpackages
 .. toctree::
 
     atomshields.checkers
-    atomshields.helpers
+    atomshields.models
     atomshields.reports
 
 Submodules
 ----------
+
+atomshields.helpers module
+--------------------------
+
+.. automodule:: atomshields.helpers
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 atomshields.scanner module
 --------------------------

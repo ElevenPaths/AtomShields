@@ -20,22 +20,6 @@ atomshields.checkers.dsstore module
     :undoc-members:
     :show-inheritance:
 
-atomshields.checkers.metashield module
---------------------------------------
-
-.. automodule:: atomshields.checkers.metashield
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-atomshields.checkers.passwords module
--------------------------------------
-
-.. automodule:: atomshields.checkers.passwords
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 atomshields.checkers.retirejs module
 ------------------------------------
 

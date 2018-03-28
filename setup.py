@@ -33,14 +33,15 @@ pip.main(["install"] + read_file('requirements.txt').splitlines())
 
 
 package_name = 'atomshields'
+version = read_file('VERSION').strip()
 
 setup(
   name = package_name,
-  version = read_file('VERSION').strip(),
+  version = version,
   install_requires=read_file('requirements.txt').splitlines(),
   packages = find_packages(),
   author = 'ElevenPaths',
-  description = "Framework de pruebas de seguridad en repositorios de código fuente. Dispone de un sistema flexible para la realización de pruebas de seguridad y comunicación de resultados.",
+  description = "Security testing framework for repositories and source code.",
   long_description=open('README.rst').read(),
   author_email = 'diego.fernandez@11paths.com, david.amrani@11paths.com',
   url = 'https://github.com/ElevenPaths/AtomShields',
@@ -48,7 +49,7 @@ setup(
       "Documentation": "https://atomshields.readthedocs.io",
       "Source Code": "https://github.com/ElevenPaths/AtomShields",
   },
-  download_url = 'https://github.com/ElevenPaths/AtomShields/tarball/0.1',
+  download_url = 'https://github.com/ElevenPaths/AtomShields/tarball/' + version,
   keywords = 'security, source code, analysis',
   license='Apache 2.0',
   classifiers=[
@@ -70,6 +71,9 @@ setup(
 # Setup AtomShields
 from atomshields.scanner import AtomShieldsScanner
 AtomShieldsScanner.setup()
+<<<<<<< HEAD
 AtomShieldsScanner.generateConfig(show = False)
 
 
+=======
+>>>>>>> ccc8614f93e9164f5c419ec1461dd665d71356de
