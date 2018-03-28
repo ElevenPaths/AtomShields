@@ -12,13 +12,9 @@ Getting started
 .. |Version| image:: http://img.shields.io/pypi/v/atomshields.svg?style=flat
    :target: https://pypi.python.org/pypi/atomshields/
    :alt: Version
-<<<<<<< HEAD
 .. |Build| image:: https://travis-ci.org/ElevenPaths/AtomShields.svg?branch=master
-=======
-.. |Build| .. image:: https://travis-ci.org/ElevenPaths/AtomShields.svg?branch=master
->>>>>>> 8023a8032f87bf0467ad2e6ae35e338f96bb4967
-   :target: https://travis-ci.org/ElevenPaths/AtomShields
-   :alt: Build
+  :target: https://travis-ci.org/ElevenPaths/AtomShields
+  :alt: Build
 .. |Codacy| image:: https://api.codacy.com/project/badge/Grade/46c76e50709e4079828d5fecafa60473
    :target: https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ElevenPaths/AtomShields&amp;utm_campaign=Badge_Grade
    :alt: Codacy
