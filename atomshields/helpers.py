@@ -11,6 +11,7 @@ class CommandHelper(object):
 	OS_DEBIAN = "Debian"
 	OS_CENTOS = "CentOS"
 	OS_REDHAT = "Redhat"
+	OS_KALI = "Kali"
 
 	OS_LINUX = "Linux"
 	OS_MAC = "Darwin"
@@ -128,7 +129,7 @@ class CommandHelper(object):
 		elif osname == self.__class__.OS_MAC:
 			command = "brew -y {action} {name}".format(action=action, name=software)
 			# raise Exception("MacOS installs are not supported yet")
-		elif osname in [self.__class__.OS_UBUNTU, self.__class__.OS_DEBIAN]:
+		elif osname in [self.__class__.OS_UBUNTU, self.__class__.OS_DEBIAN, self.__class__.OS_KALI]:
 			command = "apt-get -y {action} {name}".format(action=action, name=software)
 		elif osname in [self.__class__.OS_CENTOS, self.__class__.OS_REDHAT]:
 			command = "yum -y {action} {name}".format(action=action, name=software)
