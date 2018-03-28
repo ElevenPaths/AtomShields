@@ -133,14 +133,14 @@ class CommandHelper(object):
 		elif osname in [self.__class__.OS_CENTOS, self.__class__.OS_REDHAT]:
 			command = "yum -y {action} {name}".format(action=action, name=software)
 		else:
-			raise Exception("Unknown OS: Try to install the packages '{p}' manually".format(p=packages))
+			raise Exception("Unknown OS: Try to install the packages '{p}' manually".format(p=software))
 
 		try:
 			self.command = command
 			self.execute()
 		except OSError as e:
 			if 'Permission denied' in e:
-				raise Exception("Permission denied: Try to install the packages '{p}' manually".format(p=packages))
+				raise Exception("Permission denied: Try to install the packages '{p}' manually".format(p=software))
 			else:
 				print e
 
