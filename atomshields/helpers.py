@@ -141,6 +141,8 @@ class CommandHelper(object):
 		except OSError as e:
 			if 'Permission denied' in e:
 				raise Exception("Permission denied: Try to install the packages '{p}' manually".format(p=packages))
+			else:
+				print e
 
 
 	def execute(self, shell = True):
