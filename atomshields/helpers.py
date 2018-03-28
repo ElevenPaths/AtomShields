@@ -112,6 +112,8 @@ class CommandHelper(object):
 					return self.__class__.OS_CENTOS
 				elif _dist.lower() == self.__class__.OS_REDHAT.lower():
 					return self.__class__.OS_REDHAT
+				elif _dist.lower() == self.__class__.OS_KALI.lower():
+					return self.__class__.OS_KALI
 			return _system
 		else:
 			return None
