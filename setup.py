@@ -17,8 +17,6 @@ limitations under the License.
 
 from setuptools import find_packages
 from distutils.core import setup
-
-from distutils.core import setup
 from distutils.command.install import install as _install
 
 
