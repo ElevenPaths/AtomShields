@@ -13,8 +13,3 @@ All notable changes to this project will be documented in this file.
 - Report echo
 - Decorator for checker's run method
 - Decorator for reports's run method
-
-
-
-
-
