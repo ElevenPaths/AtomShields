@@ -176,11 +176,14 @@ class RetireJSChecker(GenericChecker):
 
 		# Install retre with npm
 		cmd = CommandHelper()
-		cmd.command = "npm install retire"
+		cmd.command = "npm install -g retire"
 		cmd.execute()
 
-		print cmd.output
-		print colored(cmd.errors, "red")
+		if cmd.errors:
+			from termcolor import colored
+			print colored(cmd.errors, "red")
+		else:
+			print cmd.output
 
 
 
