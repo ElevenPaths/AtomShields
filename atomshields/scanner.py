@@ -536,7 +536,8 @@ class AtomShieldsScanner(object):
 	def isStable(self):
 		for issue in self.issues:
 			if not issue.potential:
-				return False
+				if issue.severity in [Issue.SEVERITY_LOW, Issue.SEVERITY_MEDIUM, Issue.SEVERITY_HIGH, Issue.SEVERITY_CRITICAL]:
+					return False
 		return True
 
 	def showSummary(self):
