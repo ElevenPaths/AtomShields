@@ -222,12 +222,24 @@ class AtomShieldsScanner(object):
 			config = AtomShieldsScanner._loadConfig(AtomShieldsScanner.CONFIG_PATH)
 			AtomShieldsScanner._addConfig(instance = instance, config = config, parent_section = 'checkers')
 			with open(AtomShieldsScanner.CONFIG_PATH, 'wb') as configfile:
+				# Sort sections
+				config._sections = sorted(config.sections())
 				config.write(configfile)
 
 
 	@staticmethod
 	def installReport(path):
 		AtomShieldsScanner.installPlugin(path, AtomShieldsScanner.REPORTS_DIR)
+		report_basename = os.path.basename(path)
+		report_path = os.path.join(AtomShieldsScanner.REPORTS_DIR, report_basename)
+		if report_basename not in exclude:
+			instance = AtomShieldsScanner._getClassInstance(report_path)
+			config = AtomShieldsScanner._loadConfig(AtomShieldsScanner.CONFIG_PATH)
+			AtomShieldsScanner._addConfig(instance = instance, config = config, parent_section = 'reports')
+			with open(AtomShieldsScanner.CONFIG_PATH, 'wb') as configfile:
+				# Sort sections
+				config._sections = sorted(config.sections())
+				config.write(configfile)
 
 
 	@staticmethod
@@ -254,10 +266,20 @@ class AtomShieldsScanner(object):
 	@staticmethod
 	def uninstallChecker(name):
 		AtomShieldsScanner.uninstallPlugin(path = AtomShieldsScanner.CHECKERS_DIR, name = name, classArgs = {})
+		section = 'checkers/{n}'.format(n=name)
+		config = AtomShieldsScanner._loadConfig(AtomShieldsScanner.CONFIG_PATH)
+		config.remove_section(section)
+		with open(AtomShieldsScanner.CONFIG_PATH, 'wb') as configfile:
+			config.write(configfile)
 
 	@staticmethod
 	def uninstallReport(name):
 		AtomShieldsScanner.uninstallPlugin(path = AtomShieldsScanner.REPORTS_DIR, name = name,  classArgs = {})
+		section = 'reports/{n}'.format(n=name)
+		config = AtomShieldsScanner._loadConfig(AtomShieldsScanner.CONFIG_PATH)
+		config.remove_section(section)
+		with open(AtomShieldsScanner.CONFIG_PATH, 'wb') as configfile:
+			config.write(configfile)
 
 	@staticmethod
 	def _addConfig(instance, config, parent_section):
