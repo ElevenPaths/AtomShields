@@ -205,6 +205,20 @@ class AtomShieldsScanner(object):
 			os.makedirs(config_dir)
 
 
+	@staticmethod
+	def writeConfig(self, config, configFile = None):
+		if configFile is None:
+			configFile = AtomShieldsScanner.CONFIG_PATH
+		with open(configFile, 'wb') as configfile:
+
+			# Sort sections
+			data = {}
+			for k in config._sections.keys().sort():
+				data[k] = config._sections[k]
+
+			config._sections = data
+			config.write(configfile)
+
 
 
 	@staticmethod
@@ -221,10 +235,7 @@ class AtomShieldsScanner(object):
 			instance = AtomShieldsScanner._getClassInstance(checker_path)
 			config = AtomShieldsScanner._loadConfig(AtomShieldsScanner.CONFIG_PATH)
 			AtomShieldsScanner._addConfig(instance = instance, config = config, parent_section = 'checkers')
-			with open(AtomShieldsScanner.CONFIG_PATH, 'wb') as configfile:
-				# Sort sections
-				config._sections = sorted(config.sections())
-				config.write(configfile)
+			AtomShieldsScanner.writeConfig(config, AtomShieldsScanner.CONFIG_PATH)
 
 
 	@staticmethod
@@ -236,10 +247,7 @@ class AtomShieldsScanner(object):
 			instance = AtomShieldsScanner._getClassInstance(report_path)
 			config = AtomShieldsScanner._loadConfig(AtomShieldsScanner.CONFIG_PATH)
 			AtomShieldsScanner._addConfig(instance = instance, config = config, parent_section = 'reports')
-			with open(AtomShieldsScanner.CONFIG_PATH, 'wb') as configfile:
-				# Sort sections
-				config._sections = sorted(config.sections())
-				config.write(configfile)
+			AtomShieldsScanner.writeConfig(config, AtomShieldsScanner.CONFIG_PATH)
 
 
 	@staticmethod
