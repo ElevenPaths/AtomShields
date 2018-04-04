@@ -223,7 +223,7 @@ class AtomShieldsScanner(object):
 			AtomShieldsScanner._addConfig(instance = instance, config = config, parent_section = 'checkers')
 			with open(AtomShieldsScanner.CONFIG_PATH, 'wb') as configfile:
 				# Sort sections
-				# config._sections = sorted(config.sections())
+				config._sections = sorted(config.sections())
 				config.write(configfile)
 
 
@@ -238,7 +238,7 @@ class AtomShieldsScanner(object):
 			AtomShieldsScanner._addConfig(instance = instance, config = config, parent_section = 'reports')
 			with open(AtomShieldsScanner.CONFIG_PATH, 'wb') as configfile:
 				# Sort sections
-				# config._sections = sorted(config.sections())
+				config._sections = sorted(config.sections())
 				config.write(configfile)
 
 
