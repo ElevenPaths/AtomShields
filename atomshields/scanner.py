@@ -297,11 +297,11 @@ class AtomShieldsScanner(object):
 
 		config.add_section("checkers")
 		config.set("checkers", "enabled", True)
-		AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.CHECKERS_DIR, method=self._addConfig, args={"config": config, "parent_section": "checkers"})
+		AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.CHECKERS_DIR, method=AtomShieldsScanner._addConfig, args={"config": config, "parent_section": "checkers"})
 
 		config.add_section("reports")
 		config.set("reports", "enabled", True)
-		AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.REPORTS_DIR, method=__addConfig, args={"config": config, "parent_section": "reports"})
+		AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.REPORTS_DIR, method=AtomShieldsScanner._addConfig, args={"config": config, "parent_section": "reports"})
 
 		with open(AtomShieldsScanner.CONFIG_PATH, 'wb') as configfile:
 			config.write(configfile)
