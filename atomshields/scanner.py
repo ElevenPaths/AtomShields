@@ -216,7 +216,7 @@ class AtomShieldsScanner(object):
 	def installChecker(path):
 		AtomShieldsScanner.installPlugin(path, AtomShieldsScanner.CHECKERS_DIR)
 		instance = AtomShieldsScanner._getClassInstance(path)
-		config = self.loadConfig()
+		config = AtomShieldsScanner._loadConfig()
 		AtomShieldsScanner._addConfig(instance = instance, config = config, parent_section = 'checkers')
 
 
@@ -350,15 +350,18 @@ class AtomShieldsScanner(object):
 			data = dict(self.config.items(section))
 		return data
 
-
-	def loadConfig(self):
-		if self.configFile is not None:
+	@staticmethod
+	def _loadConfig(path = AtomShieldsScanner.CONFIG_PATH):
+		if path is not None and os.path.isfile(path):
 			handler = ConfigParser()
-			handler.read(self.configFile)
-			self.config = handler
-
+			handler.read(path)
+			return handler
 		else:
 			raise Exception('Path to config file is not setted!')
+
+	def loadConfig(self):
+		config = self.__class__._loadConfig(self.configFile)
+		self.config = config
 
 	@staticmethod
 	def _getClassName(path):
