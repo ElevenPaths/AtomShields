@@ -215,6 +215,7 @@ class AtomShieldsScanner(object):
 	@staticmethod
 	def installChecker(path):
 		AtomShieldsScanner.installPlugin(path, AtomShieldsScanner.CHECKERS_DIR)
+		print path
 		instance = AtomShieldsScanner._getClassInstance(path)
 		config = AtomShieldsScanner._loadConfig(AtomShieldsScanner.CONFIG_PATH)
 		AtomShieldsScanner._addConfig(instance = instance, config = config, parent_section = 'checkers')
