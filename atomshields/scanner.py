@@ -221,6 +221,8 @@ class AtomShieldsScanner(object):
 			instance = AtomShieldsScanner._getClassInstance(checker_path)
 			config = AtomShieldsScanner._loadConfig(AtomShieldsScanner.CONFIG_PATH)
 			AtomShieldsScanner._addConfig(instance = instance, config = config, parent_section = 'checkers')
+			with open(AtomShieldsScanner.CONFIG_PATH, 'wb') as configfile:
+				config.write(configfile)
 
 
 	@staticmethod
