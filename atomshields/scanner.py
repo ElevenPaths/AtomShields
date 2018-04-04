@@ -5,6 +5,7 @@ import shutil
 import glob
 import ast
 import sys
+import collections.OrderedDict
 from datetime import datetime
 from ConfigParser import ConfigParser
 from termcolor import colored
@@ -212,7 +213,7 @@ class AtomShieldsScanner(object):
 		with open(configFile, 'wb') as configfile:
 
 			# Sort sections
-			data = {}
+			data = OrderedDict()
 			for k in sorted(config._sections.keys()):
 				data[k] = config._sections[k]
 
