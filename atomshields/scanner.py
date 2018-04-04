@@ -215,9 +215,10 @@ class AtomShieldsScanner(object):
 	@staticmethod
 	def installChecker(path, exclude = ["__init__.py", "base.py"]):
 		AtomShieldsScanner.installPlugin(path, AtomShieldsScanner.CHECKERS_DIR)
-		if os.path.basename(path) not in exclude:
-			print path
-			instance = AtomShieldsScanner._getClassInstance(path)
+		checker_basename = os.path.basename(path)
+		checker_path = os.path.join(AtomShieldsScanner.CHECKERS_DIR, checker_basename)
+		if checker_basename not in exclude:
+			instance = AtomShieldsScanner._getClassInstance(checker_path)
 			config = AtomShieldsScanner._loadConfig(AtomShieldsScanner.CONFIG_PATH)
 			AtomShieldsScanner._addConfig(instance = instance, config = config, parent_section = 'checkers')
 
