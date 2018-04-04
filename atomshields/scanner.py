@@ -472,6 +472,12 @@ class AtomShieldsScanner(object):
 			if issue.__class__.__name__ == Issue.__name__:
 				self.issues.append(issue)
 
+	def isStable(self):
+		for issue in self.issues:
+			if not issue.potential:
+				return False
+		return True
+
 	def showSummary(self):
 		severities = {Issue.SEVERITY_INFO: 0, Issue.SEVERITY_LOW: 0, Issue.SEVERITY_MEDIUM: 0,
 						Issue.SEVERITY_HIGH: 0, Issue.SEVERITY_CRITICAL: 0}
@@ -491,8 +497,7 @@ class AtomShieldsScanner(object):
 		print ""
 		print ""
 
-		if severities[Issue.SEVERITY_CRITICAL] > 0 or severities[Issue.SEVERITY_HIGH] > 0 \
-			or severities[Issue.SEVERITY_MEDIUM] > 0 or severities[Issue.SEVERITY_LOW] > 0:
+		if not self.isStable():
 			print "This execution has been ", colored("UNSTABLE", "red", attrs=["bold", "blink"])
 		else:
 			print "This execution has been ", colored("STABLE", "green", attrs=["bold", "blink"])
