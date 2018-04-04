@@ -228,7 +228,7 @@ class AtomShieldsScanner(object):
 
 
 	@staticmethod
-	def installReport(path):
+	def installReport(path, exclude = ["__init__.py", "base.py"]):
 		AtomShieldsScanner.installPlugin(path, AtomShieldsScanner.REPORTS_DIR)
 		report_basename = os.path.basename(path)
 		report_path = os.path.join(AtomShieldsScanner.REPORTS_DIR, report_basename)
