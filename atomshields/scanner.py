@@ -255,7 +255,7 @@ class AtomShieldsScanner(object):
 		AtomShieldsScanner.uninstallPlugin(path = AtomShieldsScanner.REPORTS_DIR, name = name,  classArgs = {})
 
 	@staticmethod
-	def _addConfig(self, instance, config, parent_section):
+	def _addConfig(instance, config, parent_section):
 		"""
 		Writes a section for a plugin.
 
