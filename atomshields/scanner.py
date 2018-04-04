@@ -213,7 +213,7 @@ class AtomShieldsScanner(object):
 
 			# Sort sections
 			data = {}
-			for k in config._sections.keys().sort():
+			for k in sorted(config._sections.keys()):
 				data[k] = config._sections[k]
 
 			config._sections = data
