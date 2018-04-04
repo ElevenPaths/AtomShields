@@ -616,23 +616,3 @@ class AtomShieldsScanner(object):
 		self.showSummary()
 
 		return self.issues
-
-
-
-if __name__ == "__main__":
-
-	# AtomShieldsScanner.generateConfig(show = True)
-	# sys.exit()
-	if len(sys.argv) > 1:
-		path = sys.argv[1]
-	else:
-		path = "/tmp"
-
-
-	instance = AtomShieldsScanner(path, verbose=False)
-
-	instance.project = "Defcon-Doctor"
-
-	instance.setup()
-
-	instance.run()
