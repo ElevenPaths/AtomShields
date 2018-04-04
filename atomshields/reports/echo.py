@@ -32,4 +32,8 @@ class EchoReport(GenericReport):
 		print "-"*80
 
 		for issue in self.issues:
-			print format_str.format(issue.name, issue.severity.upper(), issue.file)
+			if issue.potential:
+				severity = "{s} [POTENTIAL]".format(s=issue.severity.upper())
+			else:
+				severity = issue.severity.upper()
+			print format_str.format(issue.name, severity, issue.file)
