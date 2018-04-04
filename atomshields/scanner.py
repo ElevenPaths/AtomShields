@@ -213,9 +213,9 @@ class AtomShieldsScanner(object):
 			shutil.copy(origin, destination)
 
 	@staticmethod
-	def installChecker(path):
+	def installChecker(path, exclude = ["__init__.py", "base.py"]):
 		AtomShieldsScanner.installPlugin(path, AtomShieldsScanner.CHECKERS_DIR)
-		if path not in ["__init__.py", "base.py"]:
+		if os.path.basename(path) not in exclude:
 			print path
 			instance = AtomShieldsScanner._getClassInstance(path)
 			config = AtomShieldsScanner._loadConfig(AtomShieldsScanner.CONFIG_PATH)
