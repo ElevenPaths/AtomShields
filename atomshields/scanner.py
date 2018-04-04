@@ -206,7 +206,7 @@ class AtomShieldsScanner(object):
 
 
 	@staticmethod
-	def writeConfig(self, config, configFile = None):
+	def writeConfig(config, configFile = None):
 		if configFile is None:
 			configFile = AtomShieldsScanner.CONFIG_PATH
 		with open(configFile, 'wb') as configfile:
