@@ -215,6 +215,10 @@ class AtomShieldsScanner(object):
 	@staticmethod
 	def installChecker(path):
 		AtomShieldsScanner.installPlugin(path, AtomShieldsScanner.CHECKERS_DIR)
+		instance = AtomShieldsScanner._getClassInstance(path)
+		config = self.loadConfig()
+		AtomShieldsScanner._addConfig(instance = instance, config = config, parent_section = 'checkers')
+
 
 	@staticmethod
 	def installReport(path):
@@ -251,6 +255,24 @@ class AtomShieldsScanner(object):
 		AtomShieldsScanner.uninstallPlugin(path = AtomShieldsScanner.REPORTS_DIR, name = name,  classArgs = {})
 
 	@staticmethod
+	def _addConfig(self, instance, config, parent_section):
+		"""
+		Writes a section for a plugin.
+
+		Args:
+			instance (object): Class instance for plugin
+			config (object): Object (ConfigParser) which the current config
+			parent_section (str): Parent section for plugin. Usually 'checkers' or 'reports'
+		"""
+		try:
+			section_name = "{p}/{n}".format(p = parent_section, n=instance.NAME.lower())
+			config.add_section(section_name)
+			for k in instance.CONFIG.keys():
+				config.set(section_name, k, instance.CONFIG[k])
+		except Exception as e:
+			print "[!] %s" % e
+
+	@staticmethod
 	def generateConfig(show = False):
 
 		config = ConfigParser()
@@ -261,19 +283,19 @@ class AtomShieldsScanner(object):
 
 
 
-		def __addConfig(instance, config, parent_section):
-			try:
-				section_name = "{p}/{n}".format(p = parent_section, n=instance.NAME)
-				config.add_section(section_name)
-				for k in instance.CONFIG.keys():
-					config.set(section_name, k, instance.CONFIG[k])
-			except Exception as e:
-				print "[!] %s" % e
+		# def __addConfig(instance, config, parent_section):
+		# 	try:
+		# 		section_name = "{p}/{n}".format(p = parent_section, n=instance.NAME)
+		# 		config.add_section(section_name)
+		# 		for k in instance.CONFIG.keys():
+		# 			config.set(section_name, k, instance.CONFIG[k])
+		# 	except Exception as e:
+		# 		print "[!] %s" % e
 
 
 		config.add_section("checkers")
 		config.set("checkers", "enabled", True)
-		AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.CHECKERS_DIR, method=__addConfig, args={"config": config, "parent_section": "checkers"})
+		AtomShieldsScanner._executeMassiveMethod(path=AtomShieldsScanner.CHECKERS_DIR, method=self._addConfig, args={"config": config, "parent_section": "checkers"})
 
 		config.add_section("reports")
 		config.set("reports", "enabled", True)
