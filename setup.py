@@ -66,6 +66,9 @@ setup(
 
 
 # Setup AtomShields
+import os
 from atomshields.scanner import AtomShieldsScanner
 AtomShieldsScanner.setup()
-AtomShieldsScanner.generateConfig(show = False)
+
+if not os.path.isfile(AtomShieldsScanner.CONFIG_PATH):
+    AtomShieldsScanner.generateConfig(show = False)
